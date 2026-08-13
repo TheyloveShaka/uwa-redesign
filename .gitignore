@@ -36,4 +36,4 @@ coverage
 .claude/
 
 # Untouched image sources, kept locally so optimisation is repeatable
-public/parks/_originals/
+.image-originals/

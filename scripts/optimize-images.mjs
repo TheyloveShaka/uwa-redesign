@@ -18,7 +18,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const DIR = path.resolve("public/parks");
-const ORIGINALS = path.join(DIR, "_originals");
+// Deliberately OUTSIDE public/. Anything under public/ is copied verbatim into
+// dist by Vite, so keeping originals there shipped 4 MB of unoptimised source
+// with every build and defeated the entire exercise.
+const ORIGINALS = path.resolve(".image-originals");
 
 // The hero poster is the LCP element and spans the viewport, so it earns more
 // pixels than a sliver that is never wider than ~40% of the screen.

@@ -114,23 +114,38 @@ export const ParkSliver = forwardRef<HTMLButtonElement, ParkSliverProps>(functio
               spray, Lake Mburo's sunlit grass, Mount Elgon's pale sky) the
               label at brightness(0.55) alone measures down around 2.7 to
               3.1:1, well under the 4.5:1 floor small text needs.
-              Went through several versions before this one, each rejected
-              for hiding too much of the photo: mixing from `--color-forest`
-              (UWA's green) read as a coloured haze, and a 30% wide neutral
-              version still read as a visible column over the image. This is
-              a swept-and-measured minimum: the narrowest ellipse (18% of
-              the sliver's width) and lightest opacity that still holds
-              every park at or above 4.5:1, measured worst case directly
-              beside the glyphs rather than the mean. Lake Mburo is the
-              tightest case at 5.35:1. It now reads as a thin shadow right
-              behind the letters, not a band across the photo. Fades out
+              The previous version of this (width 18%, height 68%) still
+              showed as a long grey column running nearly the full height of
+              every sliver, worst over plain sky or water. The bug: CSS
+              ellipse size values are the RADIUS, not the diameter. "68%"
+              meant the shape's own edge sat at 136% of the sliver's height,
+              so its 88% colour stop (0.88 x 68% =~ 60% out from centre)
+              never actually reached the container's top or bottom edge, the
+              gradient was still non-transparent everywhere on screen. Every
+              earlier contrast measurement was taken close to the vertical
+              centre, where the height radius does not affect the reading at
+              all (only the width stops do, on a horizontal ray through the
+              centre), which is exactly why the bug passed every check and
+              still shipped. Height is now swept and measured properly, not reasoned
+              about analytically: a first attempt at 34% radius measured well at the
+              vertical centre, the same place the earlier bug was measured,
+              but re-checked at the REAL top and bottom of each park's own
+              glyph run (via a DOM Range, not a guessed pixel offset) it only
+              reached 5.14:1, thin margin, because an ellipse's coverage
+              tapers toward both ends and a long label's extremities sit
+              further from centre than a short one's. 40% radius measured
+              5.49:1 at that same true worst point, comfortable margin,
+              while its fade still completes well inside the sliver rather
+              than reaching the edges. Width/opacity are unchanged from the
+              earlier swept values, since those hold at the vertical centre
+              regardless of height. Fades out
               with the label on activation, same trigger and duration. */}
           <div
             aria-hidden="true"
             className="absolute inset-0 transition-opacity duration-300"
             style={{
               backgroundImage:
-                "radial-gradient(ellipse 18% 68% at 50% 50%, color-mix(in oklab, var(--color-ink) 64%, transparent) 0%, color-mix(in oklab, var(--color-ink) 44%, transparent) 50%, transparent 88%)",
+                "radial-gradient(ellipse 18% 40% at 50% 50%, color-mix(in oklab, var(--color-ink) 64%, transparent) 0%, color-mix(in oklab, var(--color-ink) 44%, transparent) 50%, transparent 88%)",
               opacity: isActive ? 0 : 1,
             }}
           />

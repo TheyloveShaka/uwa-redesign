@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, type Variants } from "motion/react";
 import { EASE, DUR } from "../../lib/motion";
 import { useReducedMotion } from "../../lib/useReducedMotion";
+import { canAutoplayVideo } from "../../lib/media";
 import { identity, mandate } from "../../data/facts";
 
 // Hero video is active again: the user restored public/parks/hero.mp4.
@@ -20,30 +21,6 @@ import { identity, mandate } from "../../data/facts";
 // contrast while this stand-in is what is actually playing.
 const heroVideoSrc: string | null = "/parks/hero.mp4";
 const heroVideoPoster = "/parks/hero-poster.webp";
-
-interface NetworkInformationLike {
-  effectiveType?: string;
-}
-interface NavigatorWithConnection extends Navigator {
-  connection?: NetworkInformationLike;
-}
-
-const SLOW_CONNECTION_TYPES = new Set(["slow-2g", "2g", "3g"]);
-
-// Video only earns its bytes on a wide viewport, a connection that isn't
-// visibly metered, and a user who hasn't asked for less motion. Any one of
-// those failing means the (already-loaded) poster image stays the whole show.
-function canAutoplayHeroVideo(prefersReducedMotion: boolean): boolean {
-  if (typeof window === "undefined") return false;
-  if (prefersReducedMotion) return false;
-  if (window.innerWidth < 768) return false;
-
-  const { connection } = navigator as NavigatorWithConnection;
-  const effectiveType = connection?.effectiveType;
-  if (effectiveType && SLOW_CONNECTION_TYPES.has(effectiveType)) return false;
-
-  return true;
-}
 
 const scrimReveal: Variants = {
   hidden: { opacity: 0 },
@@ -92,7 +69,7 @@ export function Hero() {
 
   const initial = prefersReducedMotion ? false : "hidden";
   const canPlayVideo =
-    heroVideoSrc !== null && canAutoplayHeroVideo(prefersReducedMotion);
+    heroVideoSrc !== null && canAutoplayVideo(prefersReducedMotion);
 
   const nationalParks = mandate.find(
     (entry) => entry.label === "National Parks",

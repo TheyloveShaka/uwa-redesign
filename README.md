@@ -132,8 +132,13 @@ page, never a requirement for it.
 - **`/conservation` and `/plan-your-visit` are intentionally empty.** Both pages publish no
   content on the live site, so both render a "content pending" state rather than copy nobody at
   UWA wrote. Permit rates, the toll-free line and the address live in the footer of every page.
-- **Images are unoptimised.** They are the full-size originals from ugandawildlife.org, ~4 MB
-  total, not yet resized or re-encoded. Required before the Lighthouse ≥ 90 target is credible.
+- ~~Images are unoptimised.~~ **Done.** `pnpm optimize:images` re-encodes everything in
+  `public/parks` to WebP at the sizes the layout actually uses: **4.09 MB → 1.57 MB, 62%
+  smaller**, every park image inside the 300 KB budget and the hero poster down to 30 KB.
+  Untouched sources are preserved in `public/parks/_originals/` (gitignored) so the step is
+  repeatable and never destroys the source. It deliberately does **not** re-crop to a fixed
+  aspect ratio — each park's `subjectMask` is tuned to where the animal sits in that specific
+  frame, so cropping would silently break the Park Strip's occlusion on every park at once.
 - **Kibale's area is withheld.** UWA's own page publishes 321 km² for Kibale — the identical
   figure it publishes for Bwindi. Rather than republish a number we have good reason to doubt,
   or substitute one from elsewhere, the field is `null` with the reasoning in `areaDisputed`.
@@ -146,7 +151,21 @@ page, never a requirement for it.
   the source of truth, so 8 m ships.
 - **No gorilla silhouette.** Two hand-drawn attempts were rendered, reviewed and rejected. The
   Bwindi occlusion uses a masked photograph instead — which is how the reference achieves it.
-- Hero alt text still describes a placeholder rather than the final photograph.
+- ~~Hero alt text still describes a placeholder.~~ **Done.** It now describes the photograph
+  that is actually there. If the file changes, rewrite it — alt text describing the wrong image
+  is worse than none.
+- ~~Murchison's poster panel is the weakest of the three.~~ **Reworked.** It was a blurred
+  gradient reading as a vague glow; it is now a feathered water column with grain, framed by
+  two gorge walls closing toward the centre, which is what makes the panel read as *Murchison*
+  rather than "a waterfall" — the park's signature fact is the Nile squeezed through 8 metres.
+  That rework surfaced a real bug: the name sits in front of the column and measured **1.34:1**
+  where letters crossed the bright water. All three panels now carry a band scrim behind the
+  name; Murchison measures 3.87:1 mean / 3.36:1 worst-case against the 3:1 large-text floor.
+- **Bwindi's canopy still reads closer to rolling hills than tree crowns** at full-bleed width,
+  because `preserveAspectRatio="none"` stretches its circles into wide ellipses. More, smaller
+  crowns would fix it.
+- **No Lighthouse run yet.** Now that images are optimised the target is plausible, but it is
+  unmeasured, and an unmeasured claim is not a result.
 
 ## Accessibility
 

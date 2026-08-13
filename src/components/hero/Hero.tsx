@@ -17,7 +17,7 @@ import { identity, mandate } from "../../data/facts";
 // requirement on the footage is that nothing behind the headline is brighter
 // than roughly #6B6B6B — dusk, backlit, or against dark water or canopy.
 const heroVideoSrc: string | null = null;
-const heroVideoPoster = "/parks/hero-poster.jpg";
+const heroVideoPoster = "/parks/hero-poster.webp";
 
 interface NetworkInformationLike {
   effectiveType?: string;
@@ -111,11 +111,12 @@ export function Hero() {
         }}
       >
         {!posterFailed && (
-          // TODO: rewrite this alt text to describe the real photograph once
-          // /parks/hero-poster.jpg is sourced and replaces this placeholder.
+          // Alt text describes the photograph that is actually here, not a
+          // placeholder. If the file is replaced, rewrite this to match the new
+          // frame — alt text that describes the wrong image is worse than none.
           <img
-            src="/parks/hero-poster.jpg"
-            alt="Dusk light over open Ugandan savanna, framed by distant hills"
+            src="/parks/hero-poster.webp"
+            alt="Sunset over Murchison Falls National Park: a dirt track curves through open savanna towards the low sun, with borassus palms silhouetted along the horizon"
             width={1920}
             height={1080}
             fetchPriority="high"

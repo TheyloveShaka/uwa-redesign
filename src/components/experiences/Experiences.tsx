@@ -9,15 +9,15 @@ import { experiences } from "../../data/facts";
 
 const MEDIA: Record<string, { src: string; alt: string }> = {
   "gorilla-tracking": {
-    src: "/parks/gorilla-uganda-primate-trekking-eating.jpeg",
+    src: "/parks/gorilla-uganda-primate-trekking-eating.webp",
     alt: "A mountain gorilla feeding on foliage in dense forest undergrowth",
   },
   "chimpanzee-tracking": {
-    src: "/parks/Kibale-chimpanzees.jpg",
+    src: "/parks/Kibale-chimpanzees.webp",
     alt: "Chimpanzees in the forest canopy at Kibale",
   },
   "batwa-experience": {
-    src: "/parks/the-batwa-of-mgahinga.jpg",
+    src: "/parks/the-batwa-of-mgahinga.webp",
     alt: "Batwa community members outside the forest at Mgahinga",
   },
 };

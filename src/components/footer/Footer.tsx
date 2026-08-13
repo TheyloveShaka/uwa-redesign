@@ -11,7 +11,7 @@ export function Footer() {
           {/* Identity */}
           <div>
             <img
-              src="/parks/uwa-transparent.png"
+              src="/parks/uwa-transparent.webp"
               alt="Uganda Wildlife Authority crest"
               width={160}
               height={160}

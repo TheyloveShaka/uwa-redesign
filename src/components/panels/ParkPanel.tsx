@@ -149,10 +149,64 @@ export function ParkPanel({ park, variant = "poster" }: PanelProps) {
           </>
         )}
         {park.motion === "water-column" && (
-          <div data-water className="absolute left-1/2 top-0 h-[180%] w-[14vw] -translate-x-1/2 blur-2xl"
-            style={{ background: "linear-gradient(to bottom, transparent, color-mix(in oklab, var(--color-papyrus) 42%, transparent) 30%, color-mix(in oklab, var(--color-papyrus) 22%, transparent) 70%, transparent)" }} />
+          <>
+            {/* Wide atmospheric halo — the light the falls throw, not the falls. */}
+            <div
+              className="absolute left-1/2 top-0 h-full w-[30vw] -translate-x-1/2 blur-3xl"
+              style={{ background: "linear-gradient(to bottom, transparent, color-mix(in oklab, var(--color-papyrus) 24%, transparent) 45%, transparent)" }}
+            />
+            {/* The column itself. The first version of this was one soft
+                gradient at blur-2xl, which read as a vague glow — the panel had
+                no subject. A waterfall needs an EDGE and it needs direction, so
+                this is a bright core with only a light blur, plus repeating
+                streaks that give the water speed and grain. Scroll drives it
+                downward past the type. */}
+            {/* Feathered on both axes. A hard-edged rectangle reads as a
+                column of something, but not as water. */}
+            <div
+              data-water
+              className="absolute left-1/2 top-[-40%] h-[180%] w-[12vw] -translate-x-1/2"
+              style={{
+                maskImage: "linear-gradient(to right, transparent 0%, black 26%, black 74%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 26%, black 74%, transparent 100%)",
+              }}
+            >
+              <div
+                className="absolute inset-0 blur-[6px]"
+                style={{ background: "linear-gradient(to bottom, transparent 0%, color-mix(in oklab, var(--color-papyrus) 58%, transparent) 16%, color-mix(in oklab, var(--color-papyrus) 46%, transparent) 58%, color-mix(in oklab, var(--color-papyrus) 18%, transparent) 90%, transparent 100%)" }}
+              />
+              {/* Streaks give the water grain and direction. The first pass used
+                  hard 13px bands at 60% opacity, which read as a barcode — soft
+                  stops at low opacity and a slight blur turn the same idea into
+                  falling water rather than a venetian blind. */}
+              <div
+                className="absolute inset-0 opacity-25 blur-[3px]"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(to bottom, transparent 0px, color-mix(in oklab, var(--color-papyrus) 55%, transparent) 7px, transparent 16px)",
+                  maskImage: "linear-gradient(to bottom, transparent, black 18%, black 78%, transparent)",
+                  WebkitMaskImage: "linear-gradient(to bottom, transparent, black 18%, black 78%, transparent)",
+                }}
+              />
+            </div>
+          </>
         )}
       </div>
+
+      {/* Band scrim behind the name, above everything in the back layer.
+          Murchison exposed why this is needed: the water column is the brightest
+          thing on the panel and the name sits IN FRONT of it, so papyrus
+          letterforms crossing the column measured 1.34:1 — they disappeared.
+          A soft horizontal band gives the name a consistent ground on every
+          panel without dimming the sky or the foreground silhouettes. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-[26%] -z-20 h-[42%]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to bottom, transparent 0%, color-mix(in oklab, var(--color-murram-deep) 64%, transparent) 24%, color-mix(in oklab, var(--color-murram-deep) 64%, transparent) 76%, transparent 100%)",
+        }}
+      />
 
       {/* The name — semi-transparent, poster-scale, occluded by the foreground */}
       <h2
@@ -182,9 +236,9 @@ export function ParkPanel({ park, variant = "poster" }: PanelProps) {
       )}
 
       {/* Foreground silhouettes — the layer that cuts across the type */}
-      <div data-layer="fore" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10">
+      <div data-layer="fore" className="pointer-events-none absolute inset-0 -z-10">
         {park.motion === "mist-drift" && (
-          <CanopyEdge className="h-[34svh] w-full" style={{ color: "var(--color-forest)" }} />
+          <CanopyEdge className="absolute bottom-0 h-[34svh] w-full" style={{ color: "var(--color-forest)" }} />
         )}
         {park.motion === "heat-shimmer" && (
           <>
@@ -193,12 +247,37 @@ export function ParkPanel({ park, variant = "poster" }: PanelProps) {
                 card in the lower left. */}
             <Acacia className="absolute bottom-[13svh] left-[58%] h-[24svh] w-auto" style={{ color: "var(--color-murram-deep)" }} />
             <Acacia className="absolute bottom-[13svh] left-[80%] h-[16svh] w-auto" style={{ color: "var(--color-murram-deep)" }} />
-            <div className="h-[14svh] w-full" style={{ background: "var(--color-murram-deep)" }} />
+            <div className="absolute bottom-0 h-[14svh] w-full" style={{ background: "var(--color-murram-deep)" }} />
           </>
         )}
         {park.motion === "water-column" && (
-          <div className="h-[22svh] w-full"
-            style={{ background: "linear-gradient(to top, var(--color-murram-deep) 60%, transparent)" }} />
+          <>
+            {/* The gorge. Two rock walls closing toward the centre, leaving a
+                narrow gap for the water — this is what makes the panel read as
+                Murchison specifically rather than "a waterfall", since the
+                park's signature fact is the Nile squeezed through 8 metres.
+                They sit in the foreground layer, so they occlude the type. */}
+            <div
+              className="absolute bottom-0 left-0 h-[64svh] w-[46%]"
+              style={{
+                background: "var(--color-murram-deep)",
+                clipPath: "polygon(0 100%, 0 22%, 58% 52%, 84% 100%)",
+              }}
+            />
+            <div
+              className="absolute bottom-0 right-0 h-[64svh] w-[46%]"
+              style={{
+                background: "var(--color-murram-deep)",
+                clipPath: "polygon(100% 100%, 100% 16%, 42% 48%, 16% 100%)",
+              }}
+            />
+            {/* Spray where the column meets the rock. */}
+            <div
+              className="absolute bottom-[6svh] left-1/2 h-[18svh] w-[32vw] -translate-x-1/2 rounded-[50%] blur-2xl"
+              style={{ background: "color-mix(in oklab, var(--color-papyrus) 34%, transparent)" }}
+            />
+            <div className="absolute bottom-0 h-[12svh] w-full" style={{ background: "var(--color-murram-deep)" }} />
+          </>
         )}
       </div>
 

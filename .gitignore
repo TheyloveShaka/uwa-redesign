@@ -34,3 +34,6 @@ coverage
 
 # Local tool config
 .claude/
+
+# Untouched image sources, kept locally so optimisation is repeatable
+public/parks/_originals/

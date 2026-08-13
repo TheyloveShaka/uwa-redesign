@@ -2,6 +2,16 @@
 
 This document specifies all photography and footage that must be commissioned or licensed to replace the placeholder images and video currently in this directory. The images below are UWA's own copyrighted material from ugandawildlife.org, used for speculative redesign purposes only — they are not licensed for production deployment.
 
+> **STATUS UPDATE — read alongside the notices below.**
+>
+> * The watermarked `hero.mp4` comp described in notice (a) has been **removed from the repo
+>   and scrubbed from git history**. The hero now ships as a still. The colour requirement in
+>   (a) still governs any licensed replacement footage.
+> * Notice (b) is **resolved**: `pnpm optimize:images` re-encoded every asset to WebP,
+>   4.09 MB -> 1.57 MB (62% smaller), all within budget. Filenames below now end `.webp`.
+>   Untouched sources are kept locally in `public/parks/_originals/` (gitignored).
+> * Notice (c) still stands and is the most important one for whoever commissions photography.
+
 ---
 
 ## IMPORTANT NOTICES
@@ -34,8 +44,8 @@ The Bwindi image specifically must have a **clear, well-separated subject (goril
 | Filename | Current Dimensions | Target Dimensions | Target Aspect | Max Size | Description |
 |---|---|---|---|---|---|
 | `hero.mp4` | 700×394 | 1920×1080 minimum | 16:9 | 3 MB | **[URGENT]** Licensed video loop, 10–20 seconds, silent, seamless loop. Low-key colour (no pixel > #6B6B6B). H.264 MP4. Replace Adobe Stock watermarked comp. |
-| `hero-poster.jpg` | 1120×700 | 2400×1350 | 16:9 | 250 KB | Static poster fallback for hero section if video cannot autoplay. Landscape, high-impact composition. WebP or AVIF preferred. |
-| `hero-video-poster.jpg` | 704×400 | 2400×1350 | 16:9 | 250 KB | Video placeholder still, shown while video loads. Low-key aesthetic to match video mood. WebP or AVIF preferred. |
+| `hero-poster.webp` | 1120×700 | 2400×1350 | 16:9 | 250 KB | Static poster fallback for hero section if video cannot autoplay. Landscape, high-impact composition. WebP or AVIF preferred. |
+| `hero-video-poster.webp` | 704×400 | 2400×1350 | 16:9 | 250 KB | Video placeholder still, shown while video loads. Low-key aesthetic to match video mood. WebP or AVIF preferred. |
 
 ### Park Sliver Panels (Ten Parks)
 
@@ -43,16 +53,16 @@ All park images are used as portrait slivers (1600×2400 px, 2:3 aspect ratio, m
 
 | Filename | Current Dimensions | Target Dimensions | Target Aspect | Max Size | Description |
 |---|---|---|---|---|---|
-| `gorilla-uganda-primate-trekking-eating.jpeg` | 2048×1366 | 1600×2400 | 2:3 | 300 KB | **[CRITICAL]** Bwindi Impenetrable: Mountain gorilla in mid-action (trekking, feeding, or resting pose). Must have clear gorilla subject with separable background for occlusion mask (subject at ~61% 46%). WebP or AVIF. Placeholder EXIF credit: Matthias Mugisha. |
-| `Mgahinga-national-park.jpg` | 1120×700 | 1600×2400 | 2:3 | 300 KB | Mgahinga Gorilla: Mountain gorilla or golden monkey in volcanic highland setting. Subject at ~48% 33% of frame. WebP or AVIF. |
-| `tree-climbing-lions-in-ishasha-1.jpg` | 900×600 | 1600×2400 | 2:3 | 300 KB | Queen Elizabeth (Ishasha): Tree-climbing lion(s) in fig tree or acacia, distinctive behaviour shot. Subject at ~65% 37%. WebP or AVIF. |
+| `gorilla-uganda-primate-trekking-eating.webp` | 2048×1366 | 1600×2400 | 2:3 | 300 KB | **[CRITICAL]** Bwindi Impenetrable: Mountain gorilla in mid-action (trekking, feeding, or resting pose). Must have clear gorilla subject with separable background for occlusion mask (subject at ~61% 46%). WebP or AVIF. Placeholder EXIF credit: Matthias Mugisha. |
+| `Mgahinga-national-park.webp` | 1120×700 | 1600×2400 | 2:3 | 300 KB | Mgahinga Gorilla: Mountain gorilla or golden monkey in volcanic highland setting. Subject at ~48% 33% of frame. WebP or AVIF. |
+| `tree-climbing-lions-in-ishasha-1.webp` | 900×600 | 1600×2400 | 2:3 | 300 KB | Queen Elizabeth (Ishasha): Tree-climbing lion(s) in fig tree or acacia, distinctive behaviour shot. Subject at ~65% 37%. WebP or AVIF. |
 | `murchison-falls.webp` | 1600×1067 | 1600×2400 | 2:3 | 300 KB | Murchison Falls: The waterfall itself — Victoria Nile plunging through 8m gorge into Devil's Cauldron. Vertical crop to emphasise cascade and power. Subject at ~55% 50%. WebP or AVIF. |
-| `uwa-national-parks-kidepo-valley-herd-of-buffalos.jpg` | 800×531 | 1600×2400 | 2:3 | 300 KB | Kidepo Valley: Wild ostrich (Uganda's only population) preferred; acceptable alternatives: large buffalo herd or mixed wildlife (lions, giraffes, zebras). Subject at ~50% 60%. WebP or AVIF. |
-| `Kibale-chimpanzees.jpg` | 1120×700 | 1600×2400 | 2:3 | 300 KB | Kibale: Chimpanzee(s) in forest canopy or ground, ideally capturing behaviour (feeding, socialising, or in motion). Kanyanchu Primate Walk experience. Subject at ~50% 33%. WebP or AVIF. |
-| `semuliki.-national-park-springs.jpg` | 1095×700 | 1600×2400 | 2:3 | 300 KB | Semuliki: Sempaya Hot Springs — geothermal springs with visible steam/heat rising. Landscape shot showing water and thermal activity. Subject at ~62% 64%. WebP or AVIF. |
-| `Activities-in-Rwenzori-National-Park-1.jpeg` | 1024×768 | 1600×2400 | 2:3 | 300 KB | Rwenzori Mountains: Margherita Peak (5,109m) or mountaineering party on snow-capped high altitude terrain. Subject at ~66% 63%. WebP or AVIF. |
-| `mt-elgon-national-park-1.jpeg` | 1280×720 | 1600×2400 | 2:3 | 300 KB | Mount Elgon: Wagagai Peak (4,321m) summit or caldera (40 km² volcanic crater) landscape. Emphasise scale and geological grandeur. Subject at ~69% 74%. WebP or AVIF. |
-| `zebras-in-lake-mburo-1.jpg` | 1129×750 | 1600×2400 | 2:3 | 300 KB | Lake Mburo: Zebra herd, impalas, or elands (Africa's largest antelope) in savanna setting. Uganda's only impala population; eland herds distinctive. Subject at ~54% 44%. WebP or AVIF. |
+| `uwa-national-parks-kidepo-valley-herd-of-buffalos.webp` | 800×531 | 1600×2400 | 2:3 | 300 KB | Kidepo Valley: Wild ostrich (Uganda's only population) preferred; acceptable alternatives: large buffalo herd or mixed wildlife (lions, giraffes, zebras). Subject at ~50% 60%. WebP or AVIF. |
+| `Kibale-chimpanzees.webp` | 1120×700 | 1600×2400 | 2:3 | 300 KB | Kibale: Chimpanzee(s) in forest canopy or ground, ideally capturing behaviour (feeding, socialising, or in motion). Kanyanchu Primate Walk experience. Subject at ~50% 33%. WebP or AVIF. |
+| `semuliki.-national-park-springs.webp` | 1095×700 | 1600×2400 | 2:3 | 300 KB | Semuliki: Sempaya Hot Springs — geothermal springs with visible steam/heat rising. Landscape shot showing water and thermal activity. Subject at ~62% 64%. WebP or AVIF. |
+| `Activities-in-Rwenzori-National-Park-1.webp` | 1024×768 | 1600×2400 | 2:3 | 300 KB | Rwenzori Mountains: Margherita Peak (5,109m) or mountaineering party on snow-capped high altitude terrain. Subject at ~66% 63%. WebP or AVIF. |
+| `mt-elgon-national-park-1.webp` | 1280×720 | 1600×2400 | 2:3 | 300 KB | Mount Elgon: Wagagai Peak (4,321m) summit or caldera (40 km² volcanic crater) landscape. Emphasise scale and geological grandeur. Subject at ~69% 74%. WebP or AVIF. |
+| `zebras-in-lake-mburo-1.webp` | 1129×750 | 1600×2400 | 2:3 | 300 KB | Lake Mburo: Zebra herd, impalas, or elands (Africa's largest antelope) in savanna setting. Uganda's only impala population; eland herds distinctive. Subject at ~54% 44%. WebP or AVIF. |
 
 ### Supporting/Secondary Images
 
@@ -60,18 +70,18 @@ These images are used as secondary subject illustrations in park detail pages, c
 
 | Filename | Current Dimensions | Max Size | Description |
 |---|---|---|---|
-| `the-batwa-of-mgahinga.jpg` | 1120×700 | 300 KB | Mgahinga cultural context: Batwa guide or community member. Used alongside primary park image to highlight indigenous experience. Placeholder EXIF credit: Matthias Mugisha. |
-| `rangers-stopping-poaching.jpg` | 1049×700 | 300 KB | Conservation messaging: UWA ranger(s) on anti-poaching patrol or with arrested poacher/confiscated goods. Illustrates ranger dedication and park protection. |
-| `UWA-Rangers.jpeg` | 1200×800 | 300 KB | Conservation / Queen Elizabeth: Rangers in formation during patrol in Queen Elizabeth National Park. Illustrates ranger professionalism and coordination. EXIF description: "A team of rangers from the Uganda Wildlife Authority (UWA) in formation as they go on patrol in Queen Elizabeth Park, in Uganda." |
+| `the-batwa-of-mgahinga.webp` | 1120×700 | 300 KB | Mgahinga cultural context: Batwa guide or community member. Used alongside primary park image to highlight indigenous experience. Placeholder EXIF credit: Matthias Mugisha. |
+| `rangers-stopping-poaching.webp` | 1049×700 | 300 KB | Conservation messaging: UWA ranger(s) on anti-poaching patrol or with arrested poacher/confiscated goods. Illustrates ranger dedication and park protection. |
+| `UWA-Rangers.webp` | 1200×800 | 300 KB | Conservation / Queen Elizabeth: Rangers in formation during patrol in Queen Elizabeth National Park. Illustrates ranger professionalism and coordination. EXIF description: "A team of rangers from the Uganda Wildlife Authority (UWA) in formation as they go on patrol in Queen Elizabeth Park, in Uganda." |
 | `mountain_gorilla_babyface__.webp` | 2000×1333 | 300 KB | Bwindi / Mgahinga generic: Close-up of young mountain gorilla face. Used for comparison or emotional impact in gorilla-focused pages. Generic subject (not tied to a specific sliver). |
-| `sunset-in-murchison-falls.jpg` | 1120×700 | 300 KB | Murchison Falls alternative: Sunset/golden hour light over the falls or Nile. Adds visual variety if hero or primary image cannot be refreshed immediately. |
-| `elephants-in-murchison-falls-national-park.jpg` | 1120×700 | 300 KB | Murchison Falls alternative: African elephant(s) in park savanna. Supplements primary waterfall image if needed for content variety. |
+| `sunset-in-murchison-falls.webp` | 1120×700 | 300 KB | Murchison Falls alternative: Sunset/golden hour light over the falls or Nile. Adds visual variety if hero or primary image cannot be refreshed immediately. |
+| `elephants-in-murchison-falls-national-park.webp` | 1120×700 | 300 KB | Murchison Falls alternative: African elephant(s) in park savanna. Supplements primary waterfall image if needed for content variety. |
 
 ### Logo / Graphic Assets
 
 | Filename | Current Dimensions | Use | Notes |
 |---|---|---|---|
-| `uwa-transparent.png` | 485×544 | UWA wordmark/logo | Not a photographic asset; preserve as vector or high-res raster if logo is refreshed. |
+| `uwa-transparent.webp` | 485×544 | UWA wordmark/logo | Not a photographic asset; preserve as vector or high-res raster if logo is refreshed. |
 
 ---
 
@@ -79,7 +89,7 @@ These images are used as secondary subject illustrations in park detail pages, c
 
 **Total slots to replace:** 16 photography/videography assets (13 park slivers + 3 hero media) + 6 supporting images = **22 assets**.
 
-**Files already confirmed with dimensions:** All 17 downloaded UWA images + 3 hero files (21 total). One file (`uwa-transparent.png`) is graphic/logo, not an asset requiring photography commission.
+**Files already confirmed with dimensions:** All 17 downloaded UWA images + 3 hero files (21 total). One file (`uwa-transparent.webp`) is graphic/logo, not an asset requiring photography commission.
 
 **Outstanding:** 
 - Exact resolution of `hero.mp4` internal codec parameters (see hero video constraint section).
@@ -112,7 +122,7 @@ These images are used as secondary subject illustrations in park detail pages, c
 
 **Compiled:** 2026-08-13  
 **Photographer credits from EXIF metadata:**
-- `semuliki.-national-park-springs.jpg`, `zebras-in-lake-mburo-1.jpg`: Matthias Mugisha  
-- `UWA-Rangers.jpeg`: UWA (description embedded in EXIF)
+- `semuliki.-national-park-springs.webp`, `zebras-in-lake-mburo-1.webp`: Matthias Mugisha  
+- `UWA-Rangers.webp`: UWA (description embedded in EXIF)
 
 All dimensions and file sizes verified directly from downloaded files (not estimated).

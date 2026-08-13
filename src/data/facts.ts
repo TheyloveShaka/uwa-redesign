@@ -11,7 +11,10 @@ export const identity = {
   established: 1996,
   status:
     "Semi-autonomous agency under the Ministry of Tourism, Wildlife and Antiquities",
-  tagline: "Conserving & Sustaining Uganda's Wildlife, Since 1996",
+  // Matches ugandawildlife.org's own hero exactly, including the lowercase
+  // "wildlife". An earlier version of this had it capitalised, which reads
+  // fine but is not what the site actually publishes.
+  tagline: "Conserving & Sustaining Uganda's wildlife, since 1996",
 } as const;
 
 export const mandate = [
@@ -143,10 +146,24 @@ export const experiences = [
 export const contact = {
   tollFree: "0800 100 960",
   email: "reservations@wildlife.go.ug",
+  // "Office Phone" on the live site. There is also a separate "Landline"
+  // number in the same footer block, added below rather than merged in,
+  // since UWA lists them as two distinct lines.
   phone: "+256 414 355000",
+  landline: "+256 312 355000",
   address: "Plot 7 Kira Road, Kamwokya, P.O. Box 3530, Kampala",
   social: "@ugwildlife",
 } as const;
+
+/**
+ * Verbatim from ugandawildlife.org's "Wildlife/Eco-System Conservation"
+ * section. This is real published detail on what UWA's conservation work
+ * consists of; an earlier pass at the Conservation page said the site
+ * "publishes no body copy" for that topic, which was true of the dedicated
+ * /conservation/ page but missed this section on the homepage itself.
+ */
+export const conservationStrategies =
+  "UWA implements diverse strategies to conserve and sustainably manage wildlife. They include community participation in wildlife management; revenue sharing; collaborative management; problem animal management; wildlife use rights; and conservation education and awareness.";
 
 export const nav = [
   { label: "Parks", href: "/#parks" },

@@ -13,7 +13,10 @@
   --color-crane: #E3A81F;
   --color-papyrus: #EDE7DA;
   --color-uwa: #50A000;
-  --color-uwa-light: #7ACF1E;
+  /* Sampled directly from ugandawildlife.org (rgb(148,206,46) on their
+     "Conservation Facts" label and its accent rule), not estimated. This
+     replaces an earlier value picked by eye without checking the live site. */
+  --color-uwa-light: #94CE2E;
   --color-mist: #9DAD97;
   --color-mist-deep: #55654E;
   --color-ink: #060D0A;

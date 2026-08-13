@@ -73,6 +73,14 @@ export function Footer() {
               </li>
               <li>
                 <a
+                  href={`tel:${contact.landline.replace(/\s/g, "")}`}
+                  className="font-mono transition-colors hover:text-papyrus"
+                >
+                  {contact.landline}
+                </a>
+              </li>
+              <li>
+                <a
                   href={`mailto:${contact.email}`}
                   className="transition-colors hover:text-papyrus"
                 >

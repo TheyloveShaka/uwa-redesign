@@ -55,13 +55,20 @@ const DEFAULT_MASK = "50% 42% / 50% 55%";
 export function maskGradient(spec: string | undefined): string {
   const [position, size] = (spec ?? DEFAULT_MASK).split("/").map((part) => part.trim());
   const ellipseSize = size ?? "50% 55%";
-  // The falloff is long and starts early on purpose. A mask that holds solid
-  // to 52% and then clears by 82% has a discernible rim, and because the copy
-  // above is at full brightness over a darkened base, that rim reads as a
-  // spotlight rather than as an animal standing in front of the type. Feathering
-  // it hard trades a little occlusion crispness for an edge you cannot see —
-  // and an invisible edge is the entire point of the effect.
-  return `radial-gradient(ellipse ${ellipseSize} at ${position}, black 0%, black 30%, rgba(0,0,0,0.55) 58%, transparent 88%)`;
+  // The falloff is long and starts early on purpose, so occlusion never
+  // reads as a hard-edged spotlight (see the note this replaced). The
+  // previous curve did that with three stops — solid to 30%, a straight
+  // drop to 58%, another straight drop to 88% — which is smooth in VALUE
+  // at each stop but has a sharp change in SLOPE right at 30%, jumping from
+  // "flat" to "falling" in one step. CSS gradients are piecewise linear
+  // between stops, so that kink is real, and the eye is very sensitive to a
+  // slope discontinuity even where the underlying value is continuous (a
+  // Mach band). It was visible as a genuine horizontal line wherever the
+  // ellipse crossed a smooth part of a photo, sky or still water. This
+  // curve approximates the same overall shape, solid centre, long soft
+  // tail, with enough intermediate stops that no single slope change is
+  // large enough to read as an edge.
+  return `radial-gradient(ellipse ${ellipseSize} at ${position}, black 0%, black 8%, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.7) 32%, rgba(0,0,0,0.46) 45%, rgba(0,0,0,0.27) 58%, rgba(0,0,0,0.13) 70%, rgba(0,0,0,0.05) 82%, transparent 92%)`;
 }
 
 /**

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { contact, cta, identity, nav } from "../../data/facts";
+import { contact, cta, identity, nav, socials } from "../../data/facts";
 import { fraudAlert } from "../../data/pages";
 import { parks } from "../../data/parks";
 
@@ -88,9 +88,27 @@ export function Footer() {
                 </a>
               </li>
               <li className="max-w-[26ch] pt-2">{contact.address}</li>
-              <li className="pt-2 font-mono text-[11px] uppercase tracking-[0.15em] text-mist">
-                {contact.social}
-              </li>
+            </ul>
+
+            {/* Real, clickable profiles, not just a printed "@ugwildlife".
+                A visually-hidden label per link so "X", "Instagram" and
+                "Facebook" read as three distinct destinations to a screen
+                reader rather than three identical "opens in a new tab"
+                announcements. */}
+            <ul className="mt-6 flex gap-5">
+              {socials.map((s) => (
+                <li key={s.platform}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-mono text-[11px] uppercase tracking-[0.15em] text-mist transition-colors hover:text-papyrus focus-visible:text-papyrus"
+                  >
+                    {s.platform}
+                    <span className="sr-only"> ({s.handle}, opens in a new tab)</span>
+                  </a>
+                </li>
+              ))}
             </ul>
 
             <ul className="mt-8 space-y-2.5">

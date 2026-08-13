@@ -152,8 +152,37 @@ export const contact = {
   phone: "+256 414 355000",
   landline: "+256 312 355000",
   address: "Plot 7 Kira Road, Kamwokya, P.O. Box 3530, Kampala",
-  social: "@ugwildlife",
 } as const;
+
+/**
+ * Real, verified UWA profiles, not an unlinked "@ugwildlife" handle. Twitter/X
+ * and Instagram are confirmed by a live, clickable `<a href>` in
+ * ugandawildlife.org's own page source. Facebook is confirmed by their own
+ * schema.org Organization markup (the `sameAs` field), which is UWA's own
+ * first-party claim about their accounts, just published as structured data
+ * rather than a visible link on the page.
+ *
+ * Their page also references YouTube, LinkedIn and TikTok icons, but those
+ * are unlinked assets from the page-builder's icon library, not confirmed
+ * profile links, so they are left out rather than guessed at.
+ */
+export const socials = [
+  {
+    platform: "X",
+    handle: "@ugwildlife",
+    href: "https://twitter.com/ugwildlife",
+  },
+  {
+    platform: "Instagram",
+    handle: "@ugwildlife",
+    href: "https://www.instagram.com/ugwildlife",
+  },
+  {
+    platform: "Facebook",
+    handle: "Uganda Wildlife Authority",
+    href: "https://www.facebook.com/UgandaWildlifeAuthority",
+  },
+] as const;
 
 /**
  * Verbatim from ugandawildlife.org's "Wildlife/Eco-System Conservation"

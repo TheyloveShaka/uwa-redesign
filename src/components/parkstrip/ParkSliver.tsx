@@ -113,18 +113,26 @@ export const ParkSliver = forwardRef<HTMLButtonElement, ParkSliverProps>(functio
           {/* Collapsed label scrim. Over bright imagery (Murchison's white
               spray, Lake Mburo's sunlit grass, Mount Elgon's pale sky) the
               label at brightness(0.55) alone measures down around 2.7 to
-              3.1:1, well under the 4.5:1 floor small text needs. Rather than
-              dim the whole photo further, this is a soft vertical band,
-              centred on the label's own column, dark in the middle and
-              fading to transparent at the sliver's left and right edges, so
-              it reads as shading rather than a printed stripe. Fades out
-              with the label on activation, same trigger and duration. */}
+              3.1:1, well under the 4.5:1 floor small text needs.
+              Went through two bad versions before this one. The first mixed
+              from `--color-forest`, which is UWA's green, so it read as a
+              green haze across most of the sliver. Pulling it in to 20%
+              width fixed the colour but overcorrected into a hard dark
+              stripe, like a bar over the photo. This mixes from the neutral
+              `--color-ink` (no colour cast) and widens back out to 30%,
+              which is enough to sit under the full width of the rotated
+              glyphs without reading as a bar. Queen Elizabeth and Kidepo's
+              collapsed frames are pale enough (bright grass, hazy sky) that
+              the first tuning left them at 4.25:1 and 4.41:1, just under
+              the 4.5:1 floor, so the middle stop is a little stronger here.
+              Fades out with the label on activation, same trigger and
+              duration. */}
           <div
             aria-hidden="true"
             className="absolute inset-0 transition-opacity duration-300"
             style={{
               backgroundImage:
-                "radial-gradient(ellipse 42% 88% at 50% 50%, color-mix(in oklab, var(--color-forest) 88%, transparent) 0%, color-mix(in oklab, var(--color-forest) 74%, transparent) 42%, color-mix(in oklab, var(--color-forest) 40%, transparent) 68%, transparent 92%)",
+                "radial-gradient(ellipse 30% 78% at 50% 50%, color-mix(in oklab, var(--color-ink) 68%, transparent) 0%, color-mix(in oklab, var(--color-ink) 50%, transparent) 50%, transparent 90%)",
               opacity: isActive ? 0 : 1,
             }}
           />

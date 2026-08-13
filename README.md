@@ -1,7 +1,16 @@
 # Uganda Wildlife Authority — front page redesign
 
-A speculative redesign of [ugandawildlife.org](https://ugandawildlife.org). Not affiliated with
-or endorsed by UWA. Vite + React 19 + TypeScript + Tailwind v4, static build.
+A speculative redesign of [ugandawildlife.org](https://ugandawildlife.org). Not affiliated with,
+commissioned by, or endorsed by UWA. Vite + React 19 + TypeScript + Tailwind v4, static build.
+
+> **Asset licensing — read before making this repository public or deploying it.**
+> The photographs in `public/parks/` are **UWA's own copyrighted images**, downloaded from
+> ugandawildlife.org and used here only to demonstrate a design. They are *not* licensed for
+> redistribution or production use. Two of them carry the photographer credit **Matthias
+> Mugisha** in their EXIF (see `public/parks/SOURCES.md`). This repository is private for that
+> reason. Replace every asset per `public/parks/MANIFEST.md` before publishing or deploying,
+> and keep the credits with the files. The *code* is the portfolio artefact; the imagery is a
+> stand-in.
 
 ```bash
 pnpm install

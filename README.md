@@ -84,6 +84,26 @@ shot list with dimensions and file-size budgets, and `public/parks/SOURCES.md` f
 - **Hero video** — replace `public/parks/hero.mp4` and update `heroVideoPoster`. The gating
   logic (viewport width, `navigator.connection.effectiveType`, reduced motion) needs no changes.
 
+## Park maps
+
+Each park page pins its location on a drawn map of Uganda rather than an embedded slippy map.
+A tile library would mean a JS dependency, a network round trip per tile and a third-party
+origin — all billed to an audience largely on 3G, for what is essentially a decoration.
+
+`src/data/uganda.ts` holds the real national boundary from OpenStreetMap, Douglas–Peucker
+simplified from 32,265 points to 274 and projected equirectangular with a `cos(lat)` correction
+so the country is not horizontally stretched. It ships as a single 3 KB path with no runtime
+dependency.
+
+The nine other parks stay on the map as faint dots, so the pin reads as a position within a
+system rather than a marker alone in an outline — Kidepo's remoteness and Bwindi and Mgahinga's
+adjacency are both legible at a glance. Coordinates come from Wikipedia for nine parks and
+Wikidata (`Q1429741`) for Semuliki, whose Wikipedia article carries none; each park record
+stores its own `source`. None were invented.
+
+The pin is `--color-crane`, which is consistent with the gold rule rather than an exception to
+it: a "you are here" marker is a live indicator.
+
 ### The 3G decision
 
 Much of this audience is on mobile 3G, so the `<video>` element only mounts above a width
@@ -94,10 +114,15 @@ page, never a requirement for it.
 
 ## Known gaps
 
-- **`public/parks/hero.mp4` must not ship.** It is an Adobe Stock comp: 700×394 with a visible
-  watermark on every frame. It also fails contrast on its own merits — its brightest pixel is
-  near-white sky and measures 3.11:1 against the headline even under a 52% scrim. The licensed
-  replacement needs to be low-key: nothing behind the headline brighter than about `#6B6B6B`.
+- **The hero ships as a still, by choice.** A crane video was trialled and removed: it was an
+  Adobe Stock comp (700×394, watermarked on every frame) and it also failed contrast on its own
+  merits, its near-white sky measuring 3.11:1 against the headline even under a 52% scrim. The
+  Murchison dusk still is dark and warm and carries the headline at 9.66:1. To reintroduce
+  video, set `heroVideoSrc` in `Hero.tsx` — the gating already works. The only requirement on
+  the footage is that nothing behind the headline is brighter than about `#6B6B6B`.
+- **`/conservation` and `/plan-your-visit` are intentionally empty.** Both pages publish no
+  content on the live site, so both render a "content pending" state rather than copy nobody at
+  UWA wrote. Permit rates, the toll-free line and the address live in the footer of every page.
 - **Images are unoptimised.** They are the full-size originals from ugandawildlife.org, ~4 MB
   total, not yet resized or re-encoded. Required before the Lighthouse ≥ 90 target is credible.
 - **Kibale's area is withheld.** UWA's own page publishes 321 km² for Kibale — the identical

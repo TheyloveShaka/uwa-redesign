@@ -4,20 +4,20 @@ import { EASE, DUR } from "../../lib/motion";
 import { useReducedMotion } from "../../lib/useReducedMotion";
 import { identity, mandate } from "../../data/facts";
 
-// Grey crowned cranes — Uganda's national bird, the one on the flag — on open
-// grassland. Subject-wise this is the single best possible hero for UWA.
+// No hero video ships. The crane comp that was here was an Adobe Stock preview:
+// 700x394, watermarked on every frame, and — separately — unusable on contrast
+// grounds, since its near-white sky measured 3.11:1 against the headline even
+// under a 52% scrim.
 //
-// !!! THIS EXACT FILE MUST NOT SHIP !!!
-// It is an Adobe Stock *comp* (preview) file: 700x394 and carrying a visible
-// "AdobeStock" watermark across the centre of every frame. It is here so the
-// video path is real and tuned; replace it with the licensed full-resolution
-// master (>=1920x1080, no watermark) and nothing else needs to change.
-const heroVideoSrc: string | null = "/parks/hero.mp4";
-
-// Poster shown while the video buffers, and the still that low-bandwidth and
-// reduced-motion visitors get instead of it. Frame-matched to the footage so
-// there is no jump when the video fades in.
-const heroVideoPoster = "/parks/hero-video-poster.jpg";
+// The still is not a fallback, it is the design. The Murchison dusk frame is
+// dark and warm, so it carries the headline at 9.66:1 without fighting it.
+//
+// To reintroduce video: set this to the licensed file's path. The gating below
+// (viewport width, connection type, reduced motion) already works, and the only
+// requirement on the footage is that nothing behind the headline is brighter
+// than roughly #6B6B6B — dusk, backlit, or against dark water or canopy.
+const heroVideoSrc: string | null = null;
+const heroVideoPoster = "/parks/hero-poster.jpg";
 
 interface NetworkInformationLike {
   effectiveType?: string;

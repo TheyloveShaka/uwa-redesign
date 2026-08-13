@@ -1,5 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { parkBySlug, parks } from "../data/parks";
+import { ParkMap } from "../components/map/ParkMap";
+import { PARK_POINTS } from "../data/uganda";
 
 /**
  * One template, ten parks. Every field is verbatim from ugandawildlife.org and
@@ -58,30 +60,45 @@ export function ParkDetail() {
           aria-hidden="true"
           className="absolute inset-0 -z-10"
           style={{
+            // Two scrims, not one. The bottom carries the wordmark and meta;
+            // the top exists purely so the floating nav stays legible — Kidepo
+            // and Lake Mburo both open on pale sky, where transparent nav links
+            // wash out completely. Same failure the homepage hero had.
             backgroundImage:
-              "linear-gradient(to top, var(--color-forest) 4%, color-mix(in oklab, var(--color-forest) 82%, transparent) 34%, color-mix(in oklab, var(--color-forest) 30%, transparent) 68%, transparent 100%)",
+              "linear-gradient(to top, var(--color-forest) 4%, color-mix(in oklab, var(--color-forest) 82%, transparent) 34%, color-mix(in oklab, var(--color-forest) 30%, transparent) 68%, transparent 100%), linear-gradient(to bottom, color-mix(in oklab, var(--color-forest) 64%, transparent) 0%, color-mix(in oklab, var(--color-forest) 34%, transparent) 45%, transparent 78%)",
           }}
         />
-        <div className="mx-auto w-full max-w-[90rem] px-6 pb-16 md:px-10 md:pb-20">
-          <Link
-            to="/#parks"
-            className="font-mono text-[11px] uppercase tracking-[0.18em] text-papyrus/85 transition-colors hover:text-crane focus-visible:text-crane"
-          >
-            ← All parks
-          </Link>
-          <h1 className="mt-6 max-w-[16ch] font-poster text-[length:var(--step-6)] uppercase leading-[0.9] text-papyrus">
-            {park.name}
-          </h1>
-          {meta.length > 0 && (
-            <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-papyrus/85">
-              {meta.join(" · ")}
-            </p>
-          )}
-          {park.areaDisputed && (
-            <p className="mt-3 max-w-[52ch] font-mono text-[10px] uppercase leading-relaxed tracking-[0.12em] text-mist">
-              Park area pending confirmation from UWA
-            </p>
-          )}
+        <div className="mx-auto flex w-full max-w-[90rem] items-end justify-between gap-10 px-6 pb-16 md:px-10 md:pb-20">
+          <div>
+            <Link
+              to="/#parks"
+              className="font-mono text-[11px] uppercase tracking-[0.18em] text-papyrus/85 transition-colors hover:text-crane focus-visible:text-crane"
+            >
+              ← All parks
+            </Link>
+            <h1 className="mt-6 max-w-[16ch] font-poster text-[length:var(--step-6)] uppercase leading-[0.9] text-papyrus">
+              {park.name}
+            </h1>
+            {meta.length > 0 && (
+              <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-papyrus/85">
+                {meta.join(" · ")}
+              </p>
+            )}
+            {park.areaDisputed && (
+              <p className="mt-3 max-w-[52ch] font-mono text-[10px] uppercase leading-relaxed tracking-[0.12em] text-mist">
+                Park area pending confirmation from UWA
+              </p>
+            )}
+          </div>
+
+          {/* Etched into the photograph rather than boxed on top of it. Hidden
+              below md: at 375px it would either be too small to read or would
+              crowd the wordmark, so the park page repeats it further down. */}
+          <ParkMap
+            slug={park.slug}
+            variant="inset"
+            className="hidden w-[13rem] shrink-0 lg:block"
+          />
         </div>
       </header>
 
@@ -130,6 +147,25 @@ export function ParkDetail() {
               </p>
             </section>
           )}
+
+          {/* The map again, on a solid ground — this is the copy that mobile
+              and tablet actually get, since the hero inset only shows at lg. */}
+          <section aria-labelledby={`${park.slug}-location`}>
+            <h2
+              id={`${park.slug}-location`}
+              className="font-mono text-[11px] uppercase tracking-[0.2em] text-mist"
+            >
+              Where it is
+            </h2>
+            <ParkMap
+              slug={park.slug}
+              variant="panel"
+              className="mt-5 max-w-[16rem] lg:hidden"
+            />
+            <p className="mt-4 font-mono text-[10px] uppercase leading-relaxed tracking-[0.12em] text-mist">
+              Coordinates from {PARK_POINTS[park.slug]?.source ?? "Wikipedia"}
+            </p>
+          </section>
 
           <p className="font-mono text-[10px] uppercase leading-relaxed tracking-[0.12em] text-mist">
             Source:{" "}

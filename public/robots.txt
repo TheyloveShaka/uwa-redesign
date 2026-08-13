@@ -1,0 +1,10 @@
+# Speculative redesign of ugandawildlife.org. Not affiliated with, commissioned
+# by, or endorsed by the Uganda Wildlife Authority.
+#
+# Disallowed in full and on purpose: a convincing replica of a national
+# conservation authority's website should never appear in search results, where
+# a visitor could mistake it for the real thing and act on its phone numbers or
+# permit information. The real site is https://ugandawildlife.org.
+
+User-agent: *
+Disallow: /

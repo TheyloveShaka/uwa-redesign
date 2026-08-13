@@ -64,7 +64,12 @@ export const ParkSliver = forwardRef<HTMLButtonElement, ParkSliverProps>(functio
         ref={ref}
         type="button"
         aria-expanded={isActive}
-        aria-label={`${park.name} — ${park.signatureAttraction}. View park.`}
+        // Starts with "Explore" because that is the visible label inside the
+        // button. WCAG 2.5.3 (Label in Name) wants the accessible name to
+        // contain the visible text, so someone driving the page by voice can
+        // say "Explore" and actually hit this control. The old name said
+        // "View park", which reads fine but matches nothing on screen.
+        aria-label={`Explore ${park.name}. ${park.signatureAttraction}.`}
         tabIndex={isTabbable ? 0 : -1}
         onMouseEnter={onHoverStart}
         onFocus={onFocusIndex}

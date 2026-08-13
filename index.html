@@ -4,7 +4,42 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>uwa-homepage</title>
+    <meta name="theme-color" content="#0C1F18" />
+
+    <title>Uganda Wildlife Authority | Ten national parks</title>
+    <meta
+      name="description"
+      content="Uganda's ten national parks, from Bwindi's mountain gorillas to the Nile forced through Murchison's gorge. Conserving and sustaining Uganda's wildlife since 1996."
+    />
+
+    <!--
+      Speculative redesign, not the real UWA site. noindex is deliberate: a
+      convincing copy of a national authority's site ranking in search results
+      would be actively harmful, whatever the intent behind it.
+    -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Uganda Wildlife Authority | Ten national parks"
+    />
+    <meta
+      property="og:description"
+      content="A speculative redesign. Uganda's ten national parks, one page."
+    />
+    <meta property="og:image" content="/parks/hero-poster.webp" />
+
+    <!--
+      The hero poster is the LCP element, so the browser is told about it
+      before the module graph is parsed rather than discovering it in JSX.
+    -->
+    <link
+      rel="preload"
+      as="image"
+      href="/parks/hero-poster.webp"
+      fetchpriority="high"
+    />
   </head>
   <body>
     <div id="root"></div>

@@ -50,7 +50,7 @@ export function ParkDetail() {
       <header className="relative isolate flex min-h-[70svh] items-end overflow-hidden">
         <img
           src={park.image}
-          alt={`${park.name} — ${park.signatureAttraction}`}
+          alt={`${park.name}, ${park.signatureAttraction}`}
           width={1600}
           height={1000}
           fetchPriority="high"

@@ -24,7 +24,9 @@ export function ParkCard({ park, eager }: ParkCardProps) {
     <li className="relative h-full shrink-0 snap-start" style={{ width: "86vw" }}>
       <Link
         to={`/parks/${park.slug}`}
-        aria-label={`${park.name} — ${park.signatureAttraction}. View park.`}
+        // See ParkSliver: the accessible name leads with the visible "Explore"
+    // label so voice control can reach it (WCAG 2.5.3, Label in Name).
+    aria-label={`Explore ${park.name}. ${park.signatureAttraction}.`}
         // overflow-hidden lives on the inner div, not here — see ParkSliver
         // for why clipping at this level silently eats the ring's own
         // outward box-shadow. Same solid-dark-ring reasoning as there too.

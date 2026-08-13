@@ -1,8 +1,8 @@
 # Asset Replacement Manifest: UWA Homepage Redesign
 
-This document specifies all photography and footage that must be commissioned or licensed to replace the placeholder images and video currently in this directory. The images below are UWA's own copyrighted material from ugandawildlife.org, used for speculative redesign purposes only — they are not licensed for production deployment.
+This document specifies all photography and footage that must be commissioned or licensed to replace the placeholder images and video currently in this directory. The images below are UWA's own copyrighted material from ugandawildlife.org, used for speculative redesign purposes only, they are not licensed for production deployment.
 
-> **STATUS UPDATE — read alongside the notices below.**
+> **STATUS UPDATE, read alongside the notices below.**
 >
 > * The watermarked `hero.mp4` comp described in notice (a) has been **removed from the repo
 >   and scrubbed from git history**. The hero now ships as a still. The colour requirement in
@@ -20,7 +20,7 @@ This document specifies all photography and footage that must be commissioned or
 
 The current `hero.mp4` (700×394 pixels) is an **Adobe Stock *comp* file** with a visible watermark on every frame. It must be replaced with a **licensed full-resolution master**.
 
-**Critical colour requirement:** No pixel behind the headline may be brighter than roughly **`#6B6B6B`** (RGB 107,107,107). The current crane footage is high-key — its brightest pixel is `#EDF4F6` (near-white sky) — and achieves only 3.11:1 contrast against the cream headline even under a 52% scrim, falling below the required 4.5:1 floor for WCAG AA compliance.
+**Critical colour requirement:** No pixel behind the headline may be brighter than roughly **`#6B6B6B`** (RGB 107,107,107). The current crane footage is high-key, its brightest pixel is `#EDF4F6` (near-white sky), and achieves only 3.11:1 contrast against the cream headline even under a 52% scrim, falling below the required 4.5:1 floor for WCAG AA compliance.
 
 The replacement clip must be **low-key**: shot at dusk, backlit, or against dark water or forest canopy. Subject-wise, the grey crowned crane (Uganda's national bird) is ideal and aligns with park messaging.
 
@@ -56,10 +56,10 @@ All park images are used as portrait slivers (1600×2400 px, 2:3 aspect ratio, m
 | `gorilla-uganda-primate-trekking-eating.webp` | 2048×1366 | 1600×2400 | 2:3 | 300 KB | **[CRITICAL]** Bwindi Impenetrable: Mountain gorilla in mid-action (trekking, feeding, or resting pose). Must have clear gorilla subject with separable background for occlusion mask (subject at ~61% 46%). WebP or AVIF. Placeholder EXIF credit: Matthias Mugisha. |
 | `Mgahinga-national-park.webp` | 1120×700 | 1600×2400 | 2:3 | 300 KB | Mgahinga Gorilla: Mountain gorilla or golden monkey in volcanic highland setting. Subject at ~48% 33% of frame. WebP or AVIF. |
 | `tree-climbing-lions-in-ishasha-1.webp` | 900×600 | 1600×2400 | 2:3 | 300 KB | Queen Elizabeth (Ishasha): Tree-climbing lion(s) in fig tree or acacia, distinctive behaviour shot. Subject at ~65% 37%. WebP or AVIF. |
-| `murchison-falls.webp` | 1600×1067 | 1600×2400 | 2:3 | 300 KB | Murchison Falls: The waterfall itself — Victoria Nile plunging through 8m gorge into Devil's Cauldron. Vertical crop to emphasise cascade and power. Subject at ~55% 50%. WebP or AVIF. |
+| `murchison-falls.webp` | 1600×1067 | 1600×2400 | 2:3 | 300 KB | Murchison Falls: The waterfall itself, Victoria Nile plunging through 8m gorge into Devil's Cauldron. Vertical crop to emphasise cascade and power. Subject at ~55% 50%. WebP or AVIF. |
 | `uwa-national-parks-kidepo-valley-herd-of-buffalos.webp` | 800×531 | 1600×2400 | 2:3 | 300 KB | Kidepo Valley: Wild ostrich (Uganda's only population) preferred; acceptable alternatives: large buffalo herd or mixed wildlife (lions, giraffes, zebras). Subject at ~50% 60%. WebP or AVIF. |
 | `Kibale-chimpanzees.webp` | 1120×700 | 1600×2400 | 2:3 | 300 KB | Kibale: Chimpanzee(s) in forest canopy or ground, ideally capturing behaviour (feeding, socialising, or in motion). Kanyanchu Primate Walk experience. Subject at ~50% 33%. WebP or AVIF. |
-| `semuliki.-national-park-springs.webp` | 1095×700 | 1600×2400 | 2:3 | 300 KB | Semuliki: Sempaya Hot Springs — geothermal springs with visible steam/heat rising. Landscape shot showing water and thermal activity. Subject at ~62% 64%. WebP or AVIF. |
+| `semuliki.-national-park-springs.webp` | 1095×700 | 1600×2400 | 2:3 | 300 KB | Semuliki: Sempaya Hot Springs, geothermal springs with visible steam/heat rising. Landscape shot showing water and thermal activity. Subject at ~62% 64%. WebP or AVIF. |
 | `Activities-in-Rwenzori-National-Park-1.webp` | 1024×768 | 1600×2400 | 2:3 | 300 KB | Rwenzori Mountains: Margherita Peak (5,109m) or mountaineering party on snow-capped high altitude terrain. Subject at ~66% 63%. WebP or AVIF. |
 | `mt-elgon-national-park-1.webp` | 1280×720 | 1600×2400 | 2:3 | 300 KB | Mount Elgon: Wagagai Peak (4,321m) summit or caldera (40 km² volcanic crater) landscape. Emphasise scale and geological grandeur. Subject at ~69% 74%. WebP or AVIF. |
 | `zebras-in-lake-mburo-1.webp` | 1129×750 | 1600×2400 | 2:3 | 300 KB | Lake Mburo: Zebra herd, impalas, or elands (Africa's largest antelope) in savanna setting. Uganda's only impala population; eland herds distinctive. Subject at ~54% 44%. WebP or AVIF. |

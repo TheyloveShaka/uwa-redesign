@@ -142,7 +142,11 @@ export function Nav() {
         >
           <Link
             to="/"
-            aria-label={identity.name}
+            // Must lead with the visible "UWA" (WCAG 2.5.3, Label in Name): an
+            // accessible name of just "Uganda Wildlife Authority" contains none
+            // of the text actually on screen, so voice control cannot reach the
+            // wordmark by saying what it can see.
+            aria-label={`UWA, ${identity.name}, home`}
             className="font-poster text-xl uppercase tracking-wide text-papyrus justify-self-start"
           >
             UWA

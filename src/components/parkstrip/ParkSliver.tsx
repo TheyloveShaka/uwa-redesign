@@ -114,25 +114,23 @@ export const ParkSliver = forwardRef<HTMLButtonElement, ParkSliverProps>(functio
               spray, Lake Mburo's sunlit grass, Mount Elgon's pale sky) the
               label at brightness(0.55) alone measures down around 2.7 to
               3.1:1, well under the 4.5:1 floor small text needs.
-              Went through two bad versions before this one. The first mixed
-              from `--color-forest`, which is UWA's green, so it read as a
-              green haze across most of the sliver. Pulling it in to 20%
-              width fixed the colour but overcorrected into a hard dark
-              stripe, like a bar over the photo. This mixes from the neutral
-              `--color-ink` (no colour cast) and widens back out to 30%,
-              which is enough to sit under the full width of the rotated
-              glyphs without reading as a bar. Queen Elizabeth and Kidepo's
-              collapsed frames are pale enough (bright grass, hazy sky) that
-              the first tuning left them at 4.25:1 and 4.41:1, just under
-              the 4.5:1 floor, so the middle stop is a little stronger here.
-              Fades out with the label on activation, same trigger and
-              duration. */}
+              Went through several versions before this one, each rejected
+              for hiding too much of the photo: mixing from `--color-forest`
+              (UWA's green) read as a coloured haze, and a 30% wide neutral
+              version still read as a visible column over the image. This is
+              a swept-and-measured minimum: the narrowest ellipse (18% of
+              the sliver's width) and lightest opacity that still holds
+              every park at or above 4.5:1, measured worst case directly
+              beside the glyphs rather than the mean. Lake Mburo is the
+              tightest case at 5.35:1. It now reads as a thin shadow right
+              behind the letters, not a band across the photo. Fades out
+              with the label on activation, same trigger and duration. */}
           <div
             aria-hidden="true"
             className="absolute inset-0 transition-opacity duration-300"
             style={{
               backgroundImage:
-                "radial-gradient(ellipse 30% 78% at 50% 50%, color-mix(in oklab, var(--color-ink) 68%, transparent) 0%, color-mix(in oklab, var(--color-ink) 50%, transparent) 50%, transparent 90%)",
+                "radial-gradient(ellipse 18% 68% at 50% 50%, color-mix(in oklab, var(--color-ink) 64%, transparent) 0%, color-mix(in oklab, var(--color-ink) 44%, transparent) 50%, transparent 88%)",
               opacity: isActive ? 0 : 1,
             }}
           />

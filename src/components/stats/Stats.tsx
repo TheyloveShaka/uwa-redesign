@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { stats } from "../../data/facts";
+import { stats, conservationFacts, mammalFact, sourceConflicts } from "../../data/facts";
 import { useReducedMotion } from "../../lib/useReducedMotion";
 
 /**
@@ -65,39 +65,70 @@ export function Stats() {
       className="bg-papyrus px-6 py-24 text-ink md:px-10 md:py-32"
     >
       <div className="mx-auto max-w-[90rem]">
+        {/* "Conservation Facts" is UWA's own eyebrow for this section on
+            their homepage, verbatim, sitting directly above the same stat
+            block this page is drawn from. Their heading keeps their exact
+            capitalisation, including the space before the question mark. */}
         <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-mist-deep">
-          By the numbers
+          Conservation facts
         </p>
         <h2
           id="numbers-heading"
-          className="mt-4 max-w-[20ch] font-display text-[length:var(--step-4)] font-light leading-[1.05]"
+          className="mt-4 max-w-[36ch] font-display text-[length:var(--step-4)] font-light leading-[1.05]"
         >
-          What the parks actually hold
+          {conservationFacts.heading}
         </h2>
+        <p className="mt-6 max-w-[62ch] font-body leading-relaxed text-ink/80">
+          {conservationFacts.body}
+        </p>
 
         <dl className="mt-16 grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-          {stats.map((stat) => (
-            <div key={stat.label} className="border-t border-mist-deep/30 pt-6">
-              <dt className="sr-only">{stat.label}</dt>
-              <dd>
-                <p className="font-mono text-[length:var(--step-5)] leading-none">
-                  {stat.prefix}
-                  <Figure target={stat.value} animate={animate} />
-                  {stat.suffix}
-                </p>
-                <p className="mt-4 max-w-[22ch] font-body text-lg leading-snug">
-                  {stat.label}
-                </p>
-                {/* Only rendered where the source actually supplies a note. */}
-                {stat.note && (
-                  <p className="mt-2 max-w-[26ch] font-mono text-[11px] uppercase leading-relaxed tracking-[0.12em] text-mist-deep">
-                    {stat.note}
+          {stats.map((stat) => {
+            // UWA's own site supplies this line for the mammal figure
+            // specifically; every other stat keeps whatever note it already
+            // carries in facts.ts, or none where the source gave none.
+            const note = stat.label === "mammal species" ? mammalFact : stat.note;
+            return (
+              <div key={stat.label} className="border-t border-mist-deep/30 pt-6">
+                <dt className="sr-only">{stat.label}</dt>
+                <dd>
+                  <p className="font-mono text-[length:var(--step-5)] leading-none">
+                    {stat.prefix}
+                    <Figure target={stat.value} animate={animate} />
+                    {stat.suffix}
                   </p>
-                )}
-              </dd>
-            </div>
-          ))}
+                  <p className="mt-4 max-w-[22ch] font-body text-lg leading-snug">
+                    {stat.label}
+                  </p>
+                  {note && (
+                    <p className="mt-2 max-w-[30ch] font-mono text-[11px] uppercase leading-relaxed tracking-[0.12em] text-mist-deep">
+                      {note}
+                    </p>
+                  )}
+                </dd>
+              </div>
+            );
+          })}
         </dl>
+
+        {/* UWA's own homepage disagrees with itself on three of these
+            figures. Disclosed rather than quietly resolved, per this
+            project's rule that a conflicting source is reported, never
+            silently picked for the visitor. Kept small and factual, not an
+            alert: a footnote, not a warning. */}
+        <div className="mt-16 max-w-[70ch] border-t border-mist-deep/20 pt-8">
+          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-mist-deep">
+            A note on these figures
+          </p>
+          <ul className="mt-3 space-y-2 font-mono text-[10px] uppercase leading-relaxed tracking-[0.1em] text-mist-deep">
+            {sourceConflicts.map((conflict) => (
+              <li key={conflict.topic}>
+                {conflict.topic}: ugandawildlife.org publishes both{" "}
+                {conflict.values.join(" and ")} on the same page.
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

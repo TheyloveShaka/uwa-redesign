@@ -167,7 +167,7 @@ export function ParkStrip() {
       <ul
         role="list"
         className="m-0 flex list-none p-0"
-        style={{ height: "78svh" }}
+        style={{ height: "88svh" }}
         onMouseLeave={handleRowMouseLeave}
         onBlur={handleRowBlur}
       >

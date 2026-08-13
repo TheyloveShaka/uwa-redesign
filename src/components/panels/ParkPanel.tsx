@@ -1,3 +1,7 @@
+// Not currently mounted on the homepage. Home.tsx dropped the
+// posterParks.map(...) block so the Park Strip could be the page's
+// centrepiece on its own. This component and its data stay in the tree,
+// unused, for now.
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";

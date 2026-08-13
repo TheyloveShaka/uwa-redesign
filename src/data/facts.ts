@@ -64,6 +64,62 @@ export const mission = {
   attribution: "Uganda Wildlife Authority",
 } as const;
 
+/**
+ * Verbatim, two paragraphs, from UWA's own "Our Mandate" copy on
+ * ugandawildlife.org. Nothing paraphrased.
+ */
+export const mandateIntro = [
+  "Uganda Wildlife Authority, (UWA) is Uganda's Government agency responsible for the management and protection of Wildlife in and outside protected areas. The agency is supervised by the Ministry of Tourism, Wildlife and Antiquities.",
+  "Uganda Wildlife Authority, (UWA) manages 10 National Parks; 12 Wildlife Reserves; 5 Community Wildlife Management Areas; and 13 Wildlife Sanctuaries. The ten National Parks include Queen Elizabeth, Lake Mburo, Murchison Falls, Kidepo Valley, Kibale, Mount Elgon, Rwenzori Mountains, Semuliki, Mgahinga Gorilla, and Bwindi Impenetrable National Parks.",
+] as const;
+
+/**
+ * Verbatim from ugandawildlife.org, including their exact capitalisation
+ * and the space before the question mark in the heading.
+ */
+export const conservationFacts = {
+  heading:
+    "How DOES Uganda Wildlife Authority Support a more Sustainable Future ?",
+  body: "The Agency is mandated with sustainable management of Wildlife and the Wildlife Protected Areas of Uganda in partnership with neighboring communities and other stakeholders for the benefit of the people of Uganda and the global community",
+} as const;
+
+export const executiveDirector = {
+  name: "Dr. James Musinguzi, PhD",
+  title: "Executive Director",
+  pullQuote: "Conserving for Generations",
+  paragraph:
+    "Uganda's protected areas are home to some of the world's most iconic species and landscapes, from the mountain gorillas in the misty forests of Bwindi, to the roaring waterfalls of Murchison, the tree-climbing lions of Ishasha, and the snow-capped peaks of the Rwenzori Mountains. These natural wonders are not only vital to our national identity but also to our economy, environment, and global biodiversity.",
+} as const;
+
+export const mammalFact =
+  "UGANDA boasts over 350 species of mammals, from the mighty giant mountain gorillas to the smallest ones like bats, bush babies, and shrews.";
+
+/**
+ * UWA's own homepage contradicts itself in three places. Recorded here
+ * rather than resolved: per the project's hard rule, a missing or
+ * conflicting value is reported, never silently guessed at or picked for
+ * the visitor. `mandate` and `stats` above keep their existing verified
+ * values (13, 1073, 350+); this export just names where a second, differing
+ * figure appears on the source site.
+ */
+export const sourceConflicts = [
+  {
+    topic: "Wildlife Sanctuaries",
+    values: ["13 Wildlife Sanctuaries", "7 Wildlife Sanctuaries"],
+    note: "The mandate paragraph says 13; another section of the same homepage says 7.",
+  },
+  {
+    topic: "Recorded bird species",
+    values: ["1,060+", "1073"],
+    note: "One stat block shows 1,060+, adjacent text says 1073.",
+  },
+  {
+    topic: "Mammal species",
+    values: ["345", "over 350 species of mammals"],
+    note: "One stat block shows 345, the text says over 350 species of mammals.",
+  },
+] as const;
+
 export const experiences = [
   {
     slug: "gorilla-tracking",

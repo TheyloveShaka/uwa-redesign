@@ -6,13 +6,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-forest: #0C1F18;
+  --color-forest: #0E2109;
+  --color-forest-deep: #081405;
   --color-murram: #8C3B1E;
   --color-murram-deep: #52220F;
   --color-crane: #E3A81F;
   --color-papyrus: #EDE7DA;
-  --color-mist: #9AA79E;
-  --color-mist-deep: #56655B;
+  --color-uwa: #50A000;
+  --color-uwa-light: #7ACF1E;
+  --color-mist: #9DAD97;
+  --color-mist-deep: #55654E;
   --color-ink: #060D0A;
   --color-glacier: #C9D6D8;
 
@@ -31,7 +34,7 @@
   --step-4: clamp(2.074rem, 1.9rem + 0.87vw, 2.4rem);
   --step-5: clamp(2.488rem, 2.26rem + 1.14vw, 3rem);
   --step-6: clamp(2.986rem, 2.68rem + 1.53vw, 3.75rem);
-  --step-hero: clamp(2.75rem, 9.5vw, 8.5rem);
+  --step-hero: clamp(2rem, 6.4vw, 5rem);
   --step-poster: clamp(3.5rem, 14vw, 13rem);
 }
 

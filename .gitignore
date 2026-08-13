@@ -37,3 +37,9 @@ coverage
 
 # Untouched image sources, kept locally so optimisation is repeatable
 .image-originals/
+
+# Watermarked Adobe Stock comp used as a local stand-in for the hero.
+# Deliberately NOT committed: it carries a visible AdobeStock watermark and is
+# licensed for comping only. It was already scrubbed out of git history once.
+# Replace with the licensed master, then remove this rule.
+public/parks/hero.mp4

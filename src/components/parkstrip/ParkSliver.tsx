@@ -110,6 +110,25 @@ export const ParkSliver = forwardRef<HTMLButtonElement, ParkSliverProps>(functio
             style={{ objectPosition, filter: isActive ? "brightness(1)" : "brightness(0.55)" }}
           />
 
+          {/* Collapsed label scrim. Over bright imagery (Murchison's white
+              spray, Lake Mburo's sunlit grass, Mount Elgon's pale sky) the
+              label at brightness(0.55) alone measures down around 2.7 to
+              3.1:1, well under the 4.5:1 floor small text needs. Rather than
+              dim the whole photo further, this is a soft vertical band,
+              centred on the label's own column, dark in the middle and
+              fading to transparent at the sliver's left and right edges, so
+              it reads as shading rather than a printed stripe. Fades out
+              with the label on activation, same trigger and duration. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 transition-opacity duration-300"
+            style={{
+              backgroundImage:
+                "radial-gradient(ellipse 42% 88% at 50% 50%, color-mix(in oklab, var(--color-forest) 88%, transparent) 0%, color-mix(in oklab, var(--color-forest) 74%, transparent) 42%, color-mix(in oklab, var(--color-forest) 40%, transparent) 68%, transparent 92%)",
+              opacity: isActive ? 0 : 1,
+            }}
+          />
+
           {/* Collapsed label — the sliver's resting state: the park name
               set vertically, reading bottom-to-top. */}
           <span

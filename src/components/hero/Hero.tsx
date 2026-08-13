@@ -4,19 +4,21 @@ import { EASE, DUR } from "../../lib/motion";
 import { useReducedMotion } from "../../lib/useReducedMotion";
 import { identity, mandate } from "../../data/facts";
 
-// No hero video ships. The crane comp that was here was an Adobe Stock preview:
-// 700x394, watermarked on every frame, and — separately — unusable on contrast
-// grounds, since its near-white sky measured 3.11:1 against the headline even
-// under a 52% scrim.
+// Hero video is active again: the user restored public/parks/hero.mp4.
+// It is still an Adobe Stock comp, not licensed footage: 700x394, with a
+// visible watermark on every frame. It is gitignored and must never be
+// committed. Treat it strictly as a local stand-in for comping the layout,
+// not as shippable media.
 //
-// The still is not a fallback, it is the design. The Murchison dusk frame is
-// dark and warm, so it carries the headline at 9.66:1 without fighting it.
-//
-// To reintroduce video: set this to the licensed file's path. The gating below
-// (viewport width, connection type, reduced motion) already works, and the only
-// requirement on the footage is that nothing behind the headline is brighter
-// than roughly #6B6B6B — dusk, backlit, or against dark water or canopy.
-const heroVideoSrc: string | null = null;
+// The gating below (viewport width, connection type, reduced motion) already
+// works, and applies just the same to this comp as it will to the licensed
+// replacement. That replacement's only hard requirement is that nothing
+// behind the headline is brighter than roughly #6B6B6B: dusk, backlit, or
+// against dark water or canopy. This comp's footage is high-key (pale sky,
+// pale grass) and does not meet that bar on its own, which is why the
+// video-only scrim boost below exists: it darkens the frame enough to hold
+// contrast while this stand-in is what is actually playing.
+const heroVideoSrc: string | null = "/parks/hero.mp4";
 const heroVideoPoster = "/parks/hero-poster.webp";
 
 interface NetworkInformationLike {
@@ -149,18 +151,22 @@ export function Hero() {
       {/* Video-only scrim boost.
           Every other scrim on this hero was tuned against the sunset still,
           which is dark and warm and does most of the legibility work itself.
-          The crane footage is the opposite — high-key, pale sky and pale
-          grass, almost no dark values anywhere — so cream type over it loses
-          contrast badly. This layer exists only while the video is actually
-          showing, and drops away the moment the still is what's on screen.
-          Measured after adding it; see the figures in README. */}
+          The crane footage is the opposite: high-key, pale sky and pale
+          grass, almost no dark values anywhere, so cream type over it loses
+          contrast badly. A flat wash strong enough to hold contrast also
+          hid the footage entirely, which defeats the point of having video
+          at all. This is a vertical gradient instead: light at the top so
+          the cranes stay visible, darkening through the band the content
+          block now sits in (roughly 58 to 90 percent down), full forest by
+          the bottom edge. Exists only while the video is actually showing,
+          and drops away the moment the still is what's on screen. */}
       {videoReady && (
         <div
           aria-hidden="true"
           className="absolute inset-0"
           style={{
-            backgroundColor:
-              "color-mix(in oklab, var(--color-forest) 38%, transparent)",
+            backgroundImage:
+              "linear-gradient(to bottom, color-mix(in oklab, var(--color-forest) 22%, transparent) 0%, color-mix(in oklab, var(--color-forest) 16%, transparent) 30%, color-mix(in oklab, var(--color-forest) 74%, transparent) 55%, color-mix(in oklab, var(--color-forest) 90%, transparent) 78%, var(--color-forest) 100%)",
             transition: "opacity 600ms ease",
           }}
         />
@@ -230,8 +236,13 @@ export function Hero() {
         }}
       />
 
-      {/* Layer 3: content */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+      {/* Layer 3: content. Anchored to the lower part of the frame (roughly
+          58 to 90 percent down) instead of dead centre, so the top half of
+          the video stays clear of type and the cranes actually read. */}
+      <div
+        className="absolute inset-x-0 z-10 flex flex-col items-center justify-center px-6 text-center"
+        style={{ top: "58%", bottom: "10%" }}
+      >
         <div className="flex max-w-[92vw] flex-col items-center">
           <motion.p
             initial={initial}
@@ -266,7 +277,7 @@ export function Hero() {
               variants={headlineLineReveal(0.34)}
               className="block"
             >
-              Where the wild
+              Conserving &amp; Sustaining
             </motion.span>
             <motion.span
               initial={initial}
@@ -274,7 +285,15 @@ export function Hero() {
               variants={headlineLineReveal(0.43)}
               className="block"
             >
-              still runs
+              Uganda&rsquo;s wildlife
+            </motion.span>
+            <motion.span
+              initial={initial}
+              animate="visible"
+              variants={headlineLineReveal(0.52)}
+              className="block"
+            >
+              Since 1996
             </motion.span>
           </h1>
 
@@ -285,7 +304,7 @@ export function Hero() {
             variants={ctaReveal}
             className="mt-10 whitespace-nowrap rounded-full border border-papyrus/60 bg-transparent px-8 py-3.5 font-mono text-xs uppercase tracking-[0.18em] text-papyrus transition-colors hover:border-crane hover:bg-crane hover:text-ink focus-visible:border-crane focus-visible:bg-crane focus-visible:text-ink"
           >
-            Find your park
+            Explore More
           </motion.a>
         </div>
       </div>

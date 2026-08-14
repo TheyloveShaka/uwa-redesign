@@ -5,22 +5,31 @@ import { useReducedMotion } from "../../lib/useReducedMotion";
 import { canAutoplayVideo } from "../../lib/media";
 import { identity, mandate } from "../../data/facts";
 
-// Hero video is active again: the user restored public/parks/hero.mp4.
-// It is still an Adobe Stock comp, not licensed footage: 700x394, with a
-// visible watermark on every frame. It is gitignored and must never be
-// committed. Treat it strictly as a local stand-in for comping the layout,
-// not as shippable media.
+// Hero background is UWA's own actual hero video: this exact iframe src,
+// byte for byte, was confirmed live on ugandawildlife.org via a direct DOM
+// check against the real site (not just taken on trust). A standard iframe
+// embed is the correct, ToS-compliant way to reuse it, same technique their
+// own site uses; downloading/extracting the underlying stream would not be.
 //
-// The gating below (viewport width, connection type, reduced motion) already
-// works, and applies just the same to this comp as it will to the licensed
-// replacement. That replacement's only hard requirement is that nothing
-// behind the headline is brighter than roughly #6B6B6B: dusk, backlit, or
-// against dark water or canopy. This comp's footage is high-key (pale sky,
-// pale grass) and does not meet that bar on its own, which is why the
-// video-only scrim boost below exists: it darkens the frame enough to hold
-// contrast while this stand-in is what is actually playing.
-const heroVideoSrc: string | null = "/parks/hero.mp4";
-const heroVideoPoster = "/parks/hero-poster.webp";
+// UWA's own URL sets loop=0, which stops dead on the last frame once the
+// clip ends. For a background element a visitor may sit on top of longer
+// than the clip's own runtime, that reads as broken, so this deliberately
+// overrides to loop=1 -- which the embed only honours when `playlist` is
+// ALSO set to the same video ID, an easy-to-miss requirement of YouTube's
+// embed API. Every other param is preserved exactly as UWA has it.
+const HERO_YT_ID = "3XZfbd8yugI";
+const heroVideoEmbedSrc =
+  `https://www.youtube.com/embed/${HERO_YT_ID}` +
+  `?autoplay=1&controls=0&start=0&end=0&modestbranding=1&wmode=transparent` +
+  `&enablejsapi=1&rel=0&mute=1&loop=1&playlist=${HERO_YT_ID}`;
+
+// Poster: not a frame grab. This is YouTube's own official thumbnail CDN
+// image for this exact video (img.youtube.com/vi/<id>/maxresdefault.jpg),
+// downloaded once and optimised locally the same as every other image in
+// this project. It shows immediately, sits under the iframe as its loading
+// state, and is what's left on screen whenever the embed doesn't qualify to
+// play at all (reduced motion, narrow viewport, slow connection).
+const heroVideoPoster = "/parks/hero-poster-hippos.webp";
 
 const scrimReveal: Variants = {
   hidden: { opacity: 0 },
@@ -68,8 +77,7 @@ export function Hero() {
   const [videoReady, setVideoReady] = useState(false);
 
   const initial = prefersReducedMotion ? false : "hidden";
-  const canPlayVideo =
-    heroVideoSrc !== null && canAutoplayVideo(prefersReducedMotion);
+  const canPlayVideo = canAutoplayVideo(prefersReducedMotion);
 
   const nationalParks = mandate.find(
     (entry) => entry.label === "National Parks",
@@ -81,23 +89,23 @@ export function Hero() {
       style={{ height: "100svh" }}
     >
       {/* Layer 1: media. The gradient lives on the container so it still
-          reads as a deliberate, finished background if the poster 404s. */}
+          reads as a deliberate, finished background if the poster 404s.
+          Forest-to-forest-deep, not the old forest-to-murram amber ramp:
+          this footage has no sunset in it, so a warm undertone here would
+          fight the actual video instead of grounding it. */}
       <div
         className="absolute inset-0"
         style={{
           backgroundImage:
-            "linear-gradient(165deg, var(--color-forest) 0%, var(--color-murram-deep) 100%)",
+            "linear-gradient(165deg, var(--color-forest) 0%, var(--color-forest-deep) 100%)",
         }}
       >
         {!posterFailed && (
-          // Alt text describes the photograph that is actually here, not a
-          // placeholder. If the file is replaced, rewrite this to match the new
-          // frame — alt text that describes the wrong image is worse than none.
           <img
-            src="/parks/hero-poster.webp"
-            alt="Sunset over Murchison Falls National Park: a dirt track curves through open savanna towards the low sun, with borassus palms silhouetted along the horizon"
-            width={1920}
-            height={1080}
+            src={heroVideoPoster}
+            alt="A pod of hippos surges through shallow water at the edge of dense riverine forest"
+            width={1280}
+            height={720}
             fetchPriority="high"
             loading="eager"
             onError={() => setPosterFailed(true)}
@@ -105,51 +113,83 @@ export function Hero() {
           />
         )}
 
-        {heroVideoSrc && canPlayVideo && (
-          <video
-            className="absolute inset-0 h-full w-full object-cover"
-            src={heroVideoSrc}
-            poster={heroVideoPoster}
-            autoPlay
-            muted
-            playsInline
-            loop
-            preload="metadata"
+        {canPlayVideo && (
+          <div
             aria-hidden="true"
-            onCanPlay={() => setVideoReady(true)}
+            className="absolute inset-0 overflow-hidden"
             style={{
               opacity: videoReady ? 1 : 0,
-              transition: "opacity 600ms ease",
+              transition: "opacity 700ms ease",
             }}
-          />
+          >
+            {/* Iframes have no object-fit; this is the standard technique
+                for filling an arbitrary container with a fixed 16:9 embed:
+                oversize on whichever axis is the constraint, then centre
+                and crop with the parent's overflow:hidden. Rendering the
+                player larger than its visible area is also the only real
+                lever available to push YouTube's adaptive player toward a
+                higher-resolution stream than a 1:1-sized embed would get,
+                since there is no documented, reliable quality override for
+                embeds anymore -- a heuristic, not a guarantee, but the one
+                that exists. */}
+            <iframe
+              src={heroVideoEmbedSrc}
+              title=""
+              tabIndex={-1}
+              allow="autoplay; encrypted-media; picture-in-picture"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                width: "100vw",
+                height: "56.25vw",
+                minHeight: "100%",
+                minWidth: "177.78vh",
+                transform: "translate(-50%, -50%)",
+                pointerEvents: "none",
+                border: 0,
+              }}
+              onLoad={() => {
+                // onLoad only confirms the embedded document has loaded,
+                // not that a frame has actually painted -- there is no
+                // finer-grained signal available without pulling in the
+                // full YouTube IFrame Player API for a background embed
+                // that never needs playback control. The short delay is a
+                // deliberate buffer against revealing a blank player before
+                // real video content is behind it.
+                window.setTimeout(() => setVideoReady(true), 400);
+              }}
+            />
+          </div>
         )}
       </div>
 
       {/* Video-only scrim boost.
-          Every other scrim on this hero was tuned against the sunset still,
-          which is dark and warm and does most of the legibility work itself.
-          The crane footage is the opposite: high-key, pale sky and pale
-          grass, almost no dark values anywhere, so cream type over it loses
-          contrast badly. A flat wash strong enough to hold contrast also
-          hid the footage entirely, which defeats the point of having video
-          at all. This is a vertical gradient instead: light at the top so
-          the cranes stay visible, darkening through the band the content
-          block now sits in (roughly 58 to 90 percent down), full forest by
-          the bottom edge. Exists only while the video is actually showing,
-          and drops away the moment the still is what's on screen. */}
+          Retuned for this footage's actual profile, measured worst-case
+          across the loop (scratchpad contrast tooling), not reasoned from
+          the old crane-footage numbers. Hippos, water and forest canopy are
+          already low-key almost everywhere, so this stays light through the
+          upper frame rather than fighting footage that's already dark -- the
+          one real risk is the white splash where the hippos surge through
+          the water, which sits low in frame, exactly behind the content
+          block, so the gradient strengthens hardest there rather than
+          uniformly across the whole frame. */}
       {videoReady && (
         <div
           aria-hidden="true"
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "linear-gradient(to bottom, color-mix(in oklab, var(--color-forest) 22%, transparent) 0%, color-mix(in oklab, var(--color-forest) 16%, transparent) 30%, color-mix(in oklab, var(--color-forest) 74%, transparent) 55%, color-mix(in oklab, var(--color-forest) 90%, transparent) 78%, var(--color-forest) 100%)",
+              "linear-gradient(to bottom, color-mix(in oklab, var(--color-forest) 12%, transparent) 0%, color-mix(in oklab, var(--color-forest) 10%, transparent) 42%, color-mix(in oklab, var(--color-forest) 58%, transparent) 62%, color-mix(in oklab, var(--color-forest) 88%, transparent) 84%, var(--color-forest) 100%)",
             transition: "opacity 600ms ease",
           }}
         />
       )}
 
-      {/* Layer 2: warm scrim — legibility without going to flat black. */}
+      {/* Layer 2: ground scrim — legibility for the static poster state and
+          a floor under the video-only boost above. No warm sliver at the
+          bottom anymore: that was murram-deep, tuned to blend into a sunset
+          photo that this hero no longer shows. */}
       <motion.div
         aria-hidden="true"
         initial={initial}
@@ -158,64 +198,29 @@ export function Hero() {
         className="absolute inset-0"
         style={{
           backgroundImage:
-            "linear-gradient(to bottom, transparent 30%, color-mix(in oklab, var(--color-forest) 70%, transparent) 65%, var(--color-forest) 100%), linear-gradient(to bottom, transparent 85%, color-mix(in oklab, var(--color-murram-deep) 45%, transparent) 100%)",
+            "linear-gradient(to bottom, transparent 30%, color-mix(in oklab, var(--color-forest) 70%, transparent) 65%, var(--color-forest) 100%)",
         }}
       />
 
-      {/* Layer 2b: top scrim, purely for nav legibility over the bright sky.
-          Same technique as the bottom scrim above — a soft gradient, not a
-          bar or a shadow — so the nav still reads as floating over the photo. */}
+      {/* Layer 2b: top scrim, purely for nav legibility over the overcast
+          sky/tree-line band. Same technique as the bottom scrim — a soft
+          gradient, not a bar or a shadow — so the nav still reads as
+          floating over the footage. Strengthened from the crane-footage
+          values: measured worst-case against this footage's actual sky
+          moments landed at 4.09:1 at the old strength, a real fail against
+          the 4.5:1 floor, not close enough to round up. */}
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-40"
         style={{
-          // Strengthened after an independent WORST-CASE measurement. Sampling the
-          // mean pixel behind the nav gave a comfortable 4.76:1, but the brightest
-          // cloud in that band measured 3.78:1 — a real fail at the point where
-          // legibility actually breaks. Mean contrast over a photograph flatters
-          // itself; the bright pixels are what you lose the type against.
-          // Holding the gradient stronger for its first half fixes it while
-          // affecting only the top strip of sky, well above the sunset band.
           backgroundImage:
-            "linear-gradient(to bottom, color-mix(in oklab, var(--color-forest) 64%, transparent) 0%, color-mix(in oklab, var(--color-forest) 38%, transparent) 45%, transparent 100%)",
-        }}
-      />
-
-      {/* Layer 2c: localised legibility scrim behind the centred content
-          stack. The bottom scrim above fades out well before the vertical
-          middle of the frame, which is exactly where the kicker sits over
-          the brightest part of the sunset — this radial patch picks up the
-          slack there without darkening the photo as a whole. Sized to reach
-          past the second headline line too, since "still runs" sits over the
-          sun disc.
-
-          Per design-critique Fix 1: sized/positioned so it reads as light
-          falloff, not a rectangle. Colour is --color-murram-deep rather than
-          --color-forest — forest is a green-black, so mixing it over a gold
-          sunset shifts the hue toward grey; murram-deep darkens the value
-          while keeping the sky warm. Verified this doesn't cost contrast: a
-          --color-forest version at the same geometry/opacity was measured
-          first (kicker 5.99:1, nav 5.20:1, headline 11.47:1 at 1440x900 —
-          the numbers to fall back to if this ever needs revisiting), then
-          swapped to murram-deep and re-measured with the identical method
-          (rendered pixels behind the text, scratchpad/measure.mjs, WCAG
-          formula — text-shadow below is NOT part of the SC 1.4.3
-          calculation and earns no credit here):
-            1440x900 — kicker 5.22:1, nav links 5.07:1, "still runs" 9.41:1
-            375x812  — kicker 6.68:1, nav links 5.98:1, "still runs" 8.85:1
-          All ≥ 4.5:1. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            "radial-gradient(ellipse 78% 66% at 50% 46%, color-mix(in oklab, var(--color-murram-deep) 72%, transparent) 0%, color-mix(in oklab, var(--color-murram-deep) 42%, transparent) 45%, transparent 74%)",
+            "linear-gradient(to bottom, color-mix(in oklab, var(--color-forest) 76%, transparent) 0%, color-mix(in oklab, var(--color-forest) 50%, transparent) 45%, transparent 100%)",
         }}
       />
 
       {/* Layer 3: content. Anchored to the lower part of the frame (roughly
           58 to 90 percent down) instead of dead centre, so the top half of
-          the video stays clear of type and the cranes actually read. */}
+          the frame stays clear of type and the footage actually reads. */}
       <div
         className="absolute inset-x-0 z-10 flex flex-col items-center justify-center px-6 text-center"
         style={{ top: "58%", bottom: "10%" }}
@@ -229,7 +234,7 @@ export function Hero() {
             // Belt-and-braces on top of a scrim that already passes on its
             // own: earns no WCAG 1.4.3 credit (that formula only compares
             // flat foreground/background colour), but a tight shadow does
-            // measurably help real perceptual legibility against cloud
+            // measurably help real perceptual legibility against footage
             // detail the flat-colour math can't see.
             style={{ textShadow: "0 1px 10px rgba(6, 13, 10, 0.9)" }}
           >

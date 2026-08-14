@@ -55,16 +55,56 @@ function Figure({ target, animate }: { target: number; animate: boolean }) {
   );
 }
 
+// The single figure singled out for editorial-magazine treatment: UWA's own
+// most striking claim (51% of the world's remaining mountain gorillas), not
+// picked by position in the array so a future reorder of `stats` in facts.ts
+// can't silently swap which figure gets the big type without this file
+// noticing. Falls back to the first stat if the label ever changes upstream,
+// so the section still renders something sane rather than nothing.
+const STANDOUT_LABEL = "of the world's mountain gorillas";
+
+function noteFor(stat: { label: string; note?: string }) {
+  // UWA's own site supplies this line for the mammal figure specifically;
+  // every other stat keeps whatever note it already carries in facts.ts, or
+  // none where the source gave none.
+  return stat.label === "mammal species" ? mammalFact : stat.note;
+}
+
 export function Stats() {
   const prefersReducedMotion = useReducedMotion();
   const animate = !prefersReducedMotion;
 
+  const standout = stats.find((s) => s.label === STANDOUT_LABEL) ?? stats[0];
+  const rest = stats.filter((s) => s !== standout);
+
   return (
     <section
       aria-labelledby="numbers-heading"
-      className="bg-papyrus px-6 py-24 text-ink md:px-10 md:py-32"
+      className="relative overflow-hidden bg-papyrus px-6 py-24 text-ink md:px-10 md:py-32"
     >
-      <div className="mx-auto max-w-[90rem]">
+      {/* The section's one supporting image — quiet, not a grid of them,
+          bleeding off the right edge rather than sitting inside the text
+          grid. Doesn't sit under any text (nothing is laid over it), so
+          there's no photo/text contrast to verify here, unlike the hero or
+          Park Strip. The reserved `lg:pr-*` gutter below is what actually
+          keeps it clear of the stat grid; `overflow-hidden` on the section
+          just clips the bleed cleanly at the viewport edge instead of
+          causing horizontal scroll. mountain_gorilla_babyface__.webp is a
+          real, sourced UWA asset (see public/parks/SOURCES.md) that isn't
+          used anywhere else on the page yet, and it pairs directly with the
+          mountain-gorilla figure it sits beside. */}
+      <img
+        src="/parks/mountain_gorilla_babyface__.webp"
+        alt=""
+        aria-hidden="true"
+        width={800}
+        height={533}
+        loading="lazy"
+        decoding="async"
+        className="pointer-events-none absolute -right-10 top-28 hidden h-[42%] w-[15rem] rounded-sm object-cover shadow-[0_20px_50px_-20px_rgba(0,0,0,0.45)] lg:block xl:-right-16 xl:w-[18rem]"
+      />
+
+      <div className="relative mx-auto max-w-[90rem]">
         {/* "Conservation Facts" is UWA's own eyebrow for this section on
             their homepage, verbatim, sitting directly above the same stat
             block this page is drawn from. Their heading keeps their exact
@@ -82,41 +122,68 @@ export function Stats() {
           {conservationFacts.body}
         </p>
 
-        <dl className="mt-16 grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-          {stats.map((stat) => {
-            // UWA's own site supplies this line for the mammal figure
-            // specifically; every other stat keeps whatever note it already
-            // carries in facts.ts, or none where the source gave none.
-            const note = stat.label === "mammal species" ? mammalFact : stat.note;
-            return (
-              <div key={stat.label} className="border-t border-mist-deep/30 pt-6">
-                <dt className="sr-only">{stat.label}</dt>
-                <dd>
-                  <p className="font-mono text-[length:var(--step-5)] leading-none">
-                    {stat.prefix}
-                    <Figure target={stat.value} animate={animate} />
-                    {stat.suffix}
+        {/* One standout figure at editorial-magazine scale, the rest kept
+            at the previous uniform size around it — five equal-weight
+            numbers in one grid meant nothing anchored the eye. Reserves a
+            right-hand gutter on large screens for the bleeding photo above. */}
+        <div className="mt-16 grid gap-x-10 gap-y-14 lg:grid-cols-[1.15fr_1fr] lg:pr-56 xl:pr-64">
+          <div className="border-t-2 border-uwa pt-6">
+            <dl>
+              <dt className="sr-only">{standout.label}</dt>
+              <dd>
+                <p className="font-mono text-[length:var(--step-6)] leading-none">
+                  {standout.prefix}
+                  <Figure target={standout.value} animate={animate} />
+                  {standout.suffix}
+                </p>
+                <p className="mt-5 max-w-[26ch] font-body text-xl leading-snug">
+                  {standout.label}
+                </p>
+                {noteFor(standout) && (
+                  <p className="mt-3 max-w-[32ch] font-mono text-[11px] uppercase leading-relaxed tracking-[0.12em] text-mist-deep">
+                    {noteFor(standout)}
                   </p>
-                  <p className="mt-4 max-w-[22ch] font-body text-lg leading-snug">
-                    {stat.label}
-                  </p>
-                  {note && (
-                    <p className="mt-2 max-w-[30ch] font-mono text-[11px] uppercase leading-relaxed tracking-[0.12em] text-mist-deep">
-                      {note}
+                )}
+              </dd>
+            </dl>
+          </div>
+
+          <dl className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
+            {rest.map((stat) => {
+              const note = noteFor(stat);
+              return (
+                <div key={stat.label} className="border-t border-mist-deep/30 pt-6">
+                  <dt className="sr-only">{stat.label}</dt>
+                  <dd>
+                    <p className="font-mono text-[length:var(--step-5)] leading-none">
+                      {stat.prefix}
+                      <Figure target={stat.value} animate={animate} />
+                      {stat.suffix}
                     </p>
-                  )}
-                </dd>
-              </div>
-            );
-          })}
-        </dl>
+                    <p className="mt-4 max-w-[22ch] font-body text-lg leading-snug">
+                      {stat.label}
+                    </p>
+                    {note && (
+                      <p className="mt-2 max-w-[30ch] font-mono text-[11px] uppercase leading-relaxed tracking-[0.12em] text-mist-deep">
+                        {note}
+                      </p>
+                    )}
+                  </dd>
+                </div>
+              );
+            })}
+          </dl>
+        </div>
 
         {/* UWA's own homepage disagrees with itself on three of these
             figures. Disclosed rather than quietly resolved, per this
             project's rule that a conflicting source is reported, never
             silently picked for the visitor. Kept small and factual, not an
-            alert: a footnote, not a warning. */}
-        <div className="mt-16 max-w-[70ch] border-t border-mist-deep/20 pt-8">
+            alert: a footnote, not a warning — and, per the design spec, no
+            longer given its own border-top rule, so it doesn't compete
+            structurally with the stat grid's own dividers above it. Size,
+            colour and now whitespace alone set it apart instead. */}
+        <div className="mt-20 max-w-[70ch]">
           <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-mist-deep">
             A note on these figures
           </p>

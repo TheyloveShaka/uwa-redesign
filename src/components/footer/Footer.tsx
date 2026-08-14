@@ -122,6 +122,18 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              {/* One link, not a second full nav column: UWA's own footer
+                  treats "Wildlife Reserves" as a single line inside a larger
+                  column rather than an expanded list, and the "National
+                  parks" column here is already a full index on its own. */}
+              <li>
+                <Link
+                  to="/#reserves"
+                  className="font-mono text-[11px] uppercase tracking-[0.18em] text-papyrus/85 transition-colors hover:text-papyrus"
+                >
+                  Wildlife Reserves
+                </Link>
+              </li>
               <li>
                 <a
                   href={cta.secondary.href}

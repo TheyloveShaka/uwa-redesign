@@ -142,14 +142,26 @@ export function Nav() {
         >
           <Link
             to="/"
-            // Must lead with the visible "UWA" (WCAG 2.5.3, Label in Name): an
-            // accessible name of just "Uganda Wildlife Authority" contains none
-            // of the text actually on screen, so voice control cannot reach the
-            // wordmark by saying what it can see.
+            // Must lead with the visible "UWA" (WCAG 2.5.3, Label in Name): the
+            // badge itself has "UWA" set as text within the graphic, so a
+            // sighted user still reads that word on screen, same as the
+            // plain-text wordmark this replaces. Accessible name still leads
+            // with it so voice control can reach the badge by saying what it
+            // sees.
             aria-label={`UWA, ${identity.name}, home`}
-            className="font-poster text-xl uppercase tracking-wide text-papyrus justify-self-start"
+            className="justify-self-start"
           >
-            UWA
+            {/* UWA's real crest, not a redrawn approximation: the antelope
+                and elephant seal, sourced from ugandawildlife.org (see
+                public/parks/SOURCES.md). Alt is empty since the Link's own
+                aria-label already carries the accessible name. */}
+            <img
+              src="/parks/uwa-transparent.webp"
+              alt=""
+              width={320}
+              height={359}
+              className="h-11 w-auto"
+            />
           </Link>
 
           <ul className="col-start-2 hidden items-center gap-4 lg:gap-8 md:flex">

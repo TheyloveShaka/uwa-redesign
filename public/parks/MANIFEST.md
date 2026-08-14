@@ -4,12 +4,17 @@ This document specifies all photography and footage that must be commissioned or
 
 > **STATUS UPDATE, read alongside the notices below.**
 >
-> * The watermarked `hero.mp4` comp described in notice (a) has been **removed from the repo
->   and scrubbed from git history**. The hero now ships as a still. The colour requirement in
->   (a) still governs any licensed replacement footage.
-> * Notice (b) is **resolved**: `pnpm optimize:images` re-encoded every asset to WebP,
->   4.09 MB -> 1.57 MB (62% smaller), all within budget. Filenames below now end `.webp`.
->   Untouched sources are kept locally in `public/parks/_originals/` (gitignored).
+> * Notice (a) is **superseded**: the hero no longer ships a local video file at all. It embeds
+>   UWA's own real hero video (`youtube.com/embed/3XZfbd8yugI`, confirmed live on
+>   ugandawildlife.org), the same standard iframe technique their own site uses. There is no
+>   watermarked comp left to replace and no local footage to license: the video is UWA's actual
+>   embed, not an asset this project owns or ships. `hero-poster-hippos.webp` (YouTube's own
+>   official thumbnail for that video) is the poster/fallback still, and the colour requirement
+>   below is already satisfied by the real footage (low-key: hippos, water, forest canopy,
+>   overcast sky, no bright sun disc), verified by measurement rather than assumed.
+> * Notice (b) is **resolved**: `pnpm optimize:images` re-encodes every asset to WebP, run most
+>   recently at 1995 KB -> 1598 KB (20% smaller), all within budget. Filenames below end `.webp`.
+>   Untouched sources are kept locally in `.image-originals/` (gitignored).
 > * Notice (c) still stands and is the most important one for whoever commissions photography.
 
 ---
@@ -64,6 +69,23 @@ All park images are used as portrait slivers (1600×2400 px, 2:3 aspect ratio, m
 | `mt-elgon-national-park-1.webp` | 1280×720 | 1600×2400 | 2:3 | 300 KB | Mount Elgon: Wagagai Peak (4,321m) summit or caldera (40 km² volcanic crater) landscape. Emphasise scale and geological grandeur. Subject at ~69% 74%. WebP or AVIF. |
 | `zebras-in-lake-mburo-1.webp` | 1129×750 | 1600×2400 | 2:3 | 300 KB | Lake Mburo: Zebra herd, impalas, or elands (Africa's largest antelope) in savanna setting. Uganda's only impala population; eland herds distinctive. Subject at ~54% 44%. WebP or AVIF. |
 
+### Wildlife Reserve Images (Ten Reserves)
+
+Extracted alongside `src/data/reserves.ts` — the eleven Wildlife Reserves distinct from the ten National Parks above. No reserve-page UI exists yet in this codebase (this was a data/asset extraction pass only), so no fixed sliver aspect ratio is assumed here the way it is for the Park Sliver Panels; whoever designs that UI should pick dimensions to match. Toro Semliki Wildlife Reserve has no row: its own page's `og:image` resolves to the generic `UWA-Rangers.jpeg` placeholder rather than a reserve-specific photo, so `image` is `null` on that entry in `reserves.ts` and nothing was downloaded for it.
+
+| Filename | Current Dimensions | Max Size | Description |
+|---|---|---|---|
+| `katonga-wildlife-reserve-bay.webp` | 799×533 | 300 KB | Katonga: Lake Albert-style bay shoreline with dugout canoes, consistent with Katonga's wetland/Katonga River system. WebP or AVIF. |
+| `ajai-wildlife-reserve-crowned-cranes.webp` | 582×466 | 300 KB | Ajai: grey crowned cranes (Uganda's national bird). Not a species named in Ajai's own Fauna text; generic rather than reserve-specific. WebP or AVIF. |
+| `bugungu-wildlife-reserve-airstrip.webp` | 800×531 | 300 KB | Bugungu: light aircraft and ground crew on a dirt airstrip, illustrating fly-in access near Murchison Falls. WebP or AVIF. |
+| `karuma-wildlife-reserve-nile-rapids.webp` | 799×534 | 300 KB | Karuma: river rapids through forest, consistent with the Victoria Nile at Karuma Falls (not named in the reserve's own page text). WebP or AVIF. |
+| `kigezi-wildlife-reserve-lion.webp` | 1024×576 | 300 KB | Kigezi: a lion resting in a tree. Lion is named in Kigezi's own Fauna list, though the generic filename suggests a stock/library shot rather than a Kigezi-specific capture. WebP or AVIF. |
+| `kyambura-wildlife-reserve-lions.webp` | 800×534 | 300 KB | Kyambura: a pride of lions in grassland, consistent with lion being named in Kyambura's own Fauna list. WebP or AVIF. |
+| `pian-upe-wildlife-reserve-ostriches.webp` | 1024×500 | 300 KB | Pian-Upe: a group of ostriches in savanna grassland, directly consistent with Pian-Upe's own Fauna text ("Birds include ostrich Struthio camelus"). WebP or AVIF. |
+| `matheniko-wildlife-reserve-camels.webp` | 602×354 | 300 KB | Matheniko: **[FLAG]** shows a herd of domestic camels — not any species in Matheniko's own Fauna list (lion, leopard, cheetah, giraffe, eland, roan antelope, Bright's gazelle) and not native Ugandan wildlife. This is genuinely UWA's own `og:image` for the page; used as-is, mismatch noted in `reserves.ts`'s `todo` for this entry. Replacement photography should actually depict one of the listed species. WebP or AVIF. |
+| `bokora-wildlife-reserve-birds.webp` | 800×557 | 300 KB | Bokora: two small birds (swallow-tailed bee-eater type) in flight/perched. Bokora's own Fauna text names only mammals, so this can't be cross-checked against page copy. Filename pattern suggests a Flickr-sourced photo. WebP or AVIF. |
+| `kabwoya-wildlife-reserve-elephants.webp` | 800×531 | 300 KB | Kabwoya: **[FLAG]** an elephant family herd. Elephants are not named in Kabwoya's own Fauna list (Uganda kob, bush duiker, oribi, warthog, bushbuck, bushpig, colobus, hippo, buffalo, leopard, hyena, chimpanzees). Source filename `elephtans.jpg` is UWA's own typo. Used as-is; mismatch noted in `reserves.ts`'s `todo` for this entry. WebP or AVIF. |
+
 ### Supporting/Secondary Images
 
 These images are used as secondary subject illustrations in park detail pages, conservation sections, or activity showcases. Dimensions are preserved from source; resize and re-encode as WebP/AVIF before launch.
@@ -87,9 +109,9 @@ These images are used as secondary subject illustrations in park detail pages, c
 
 ## Summary
 
-**Total slots to replace:** 16 photography/videography assets (13 park slivers + 3 hero media) + 6 supporting images = **22 assets**.
+**Total slots to replace:** 16 photography/videography assets (13 park slivers + 3 hero media) + 6 supporting images + 10 wildlife reserve images = **32 assets**.
 
-**Files already confirmed with dimensions:** All 17 downloaded UWA images + 3 hero files (21 total). One file (`uwa-transparent.webp`) is graphic/logo, not an asset requiring photography commission.
+**Files already confirmed with dimensions:** All 17 downloaded UWA park images + 3 hero files + 10 wildlife reserve images (30 total). One file (`uwa-transparent.webp`) is graphic/logo, not an asset requiring photography commission.
 
 **Outstanding:** 
 - Exact resolution of `hero.mp4` internal codec parameters (see hero video constraint section).

@@ -27,6 +27,10 @@ const ORIGINALS = path.resolve(".image-originals");
 // pixels than a sliver that is never wider than ~40% of the screen.
 const RULES = [
   { match: /^hero-poster\./i, width: 2000, quality: 74, label: "hero poster" },
+  // Same LCP-sized treatment as the sunset poster above: this is YouTube's
+  // own official thumbnail CDN image for the embedded hero video (not a
+  // frame grab), used as the loading/fallback still for that embed.
+  { match: /^hero-poster-hippos\./i, width: 2000, quality: 74, label: "hero poster (video fallback)" },
   { match: /^uwa-transparent\./i, width: 320, quality: 90, label: "crest", keepAlpha: true },
   { match: /.*/, width: 1400, quality: 72, label: "park / editorial" },
 ];

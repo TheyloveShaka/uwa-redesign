@@ -157,10 +157,11 @@ export const contact = {
 /**
  * Real, verified UWA profiles, not an unlinked "@ugwildlife" handle. Twitter/X
  * and Instagram are confirmed by a live, clickable `<a href>` in
- * ugandawildlife.org's own page source. Facebook is confirmed by their own
- * schema.org Organization markup (the `sameAs` field), which is UWA's own
- * first-party claim about their accounts, just published as structured data
- * rather than a visible link on the page.
+ * ugandawildlife.org's own page source (re-checked directly against the live
+ * nav, which links to x.com, not twitter.com — updated to match). Facebook
+ * is confirmed by their own schema.org Organization markup (the `sameAs`
+ * field), which is UWA's own first-party claim about their accounts, just
+ * published as structured data rather than a visible link on the page.
  *
  * Their page also references YouTube, LinkedIn and TikTok icons, but those
  * are unlinked assets from the page-builder's icon library, not confirmed
@@ -170,12 +171,12 @@ export const socials = [
   {
     platform: "X",
     handle: "@ugwildlife",
-    href: "https://twitter.com/ugwildlife",
+    href: "https://x.com/ugwildlife",
   },
   {
     platform: "Instagram",
     handle: "@ugwildlife",
-    href: "https://www.instagram.com/ugwildlife",
+    href: "https://www.instagram.com/ugwildlife/?hl=en",
   },
   {
     platform: "Facebook",

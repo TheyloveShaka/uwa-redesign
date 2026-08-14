@@ -1,5 +1,6 @@
 import { Hero } from "../components/hero/Hero";
 import { ParkStrip } from "../components/parkstrip/ParkStrip";
+import { Reserves } from "../components/reserves/Reserves";
 import { Stats } from "../components/stats/Stats";
 import { Experiences } from "../components/experiences/Experiences";
 import { ConservationBlock } from "../components/conservation/ConservationBlock";
@@ -14,11 +15,19 @@ import { ConservationBlock } from "../components/conservation/ConservationBlock"
 // that it does not need the panels underneath it to carry the page. The
 // panel component itself still exists and is reachable from other routes;
 // see the note at the top of ParkPanel.tsx.
+//
+// Reserves sits directly below the Park Strip, not further down the page:
+// the design spec frames it as "related to the Park Strip, a tier down",
+// which only reads correctly as an immediate neighbour. Placing it here
+// also means its own `bg-forest-deep` ground breaks up what would otherwise
+// be three `bg-forest` sections (Park Strip, Experiences, ConservationBlock)
+// on either side of Stats' one `bg-papyrus` interruption.
 export function Home() {
   return (
     <>
       <Hero />
       <ParkStrip />
+      <Reserves />
       <Stats />
       <Experiences />
       <ConservationBlock />

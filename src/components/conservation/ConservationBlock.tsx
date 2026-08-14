@@ -194,18 +194,27 @@ export function ConservationBlock() {
             </div>
           </div>
 
-          {/* The numbers, restyled to carry the green retheme through: the
-              figures pick up --color-uwa-light as an accent, the divider
-              above them does too, so the same brand colour that anchors the
-              heading rule reappears here rather than the section reverting
-              to plain papyrus-on-forest partway through. */}
-          <dl className="mt-16 grid gap-x-8 gap-y-10 border-t border-uwa/25 pt-10 sm:grid-cols-2 lg:grid-cols-4">
-            {mandate.map((entry) => (
-              <div key={entry.label}>
-                <dt className="font-mono text-[length:var(--step-4)] leading-none tabular-nums text-uwa-light">
+          {/* The numbers, deliberately NOT a second card grid: Stats already
+              owns that device (sm:grid-cols-2 lg:grid-cols-4, same type
+              scale), and stacking two visually identical stat grids back to
+              back on one page read as templated rather than composed. Here
+              the same four figures run as a single horizontal row of
+              number/label pairs separated by rules, closer to a ticker than
+              a dashboard — the figures still pick up --color-uwa-light as
+              an accent, same brand colour that anchors the heading rule
+              above, just in a different structural device. */}
+          <dl className="mt-16 flex flex-wrap gap-x-0 gap-y-8 border-t border-uwa/25 pt-10">
+            {mandate.map((entry, index) => (
+              <div
+                key={entry.label}
+                className={`flex items-baseline gap-3 pr-8 ${
+                  index > 0 ? "border-l border-uwa/25 pl-8" : ""
+                }`}
+              >
+                <dt className="font-mono text-[length:var(--step-3)] leading-none tabular-nums text-uwa-light">
                   {entry.count}
                 </dt>
-                <dd className="mt-3 max-w-[18ch] font-body leading-snug text-papyrus/85">
+                <dd className="max-w-[16ch] font-body text-sm leading-snug text-papyrus/85">
                   {entry.label}
                   {/* CWMAs are guided, not managed, the distinction is UWA's own. */}
                   {"verb" in entry && entry.verb && (
@@ -232,20 +241,27 @@ export function ConservationBlock() {
           </div>
 
           {/* Executive Director's statement: a named, attributed voice rather
-              than more institutional prose. Text only, on purpose, see the
-              note at the top of this file. */}
-          <div className="mt-20 max-w-[46rem] border-t border-uwa/25 pt-10">
-            <div aria-hidden="true" className="h-px w-16 bg-uwa-light" />
-            <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.2em] text-mist">
+              than more institutional prose, so it earns different treatment
+              than "Our Mandate" and the strategies paragraph above it, not
+              just a repeat of the same rule-plus-eyebrow rhythm. Same
+              left-border device as those two blocks, but at a visibly
+              higher opacity (/70 vs their /45) so the rule itself reads as
+              heavier without introducing a fourth new device on the page,
+              a bigger jump in the pull-quote's own scale (--step-4, up from
+              --step-3), and more surrounding whitespace than the mandate
+              copy gets. Text only, on purpose, see the note at the top of
+              this file. */}
+          <div className="mt-28 max-w-[46rem] border-l-2 border-uwa/70 pl-6 md:pl-9">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-mist">
               Message from the Executive Director
             </p>
-            <p className="mt-6 font-display text-[length:var(--step-3)] font-light leading-snug text-papyrus">
+            <p className="mt-8 font-display text-[length:var(--step-4)] font-light leading-[1.08] text-papyrus">
               &ldquo;{executiveDirector.pullQuote}&rdquo;
             </p>
-            <p className="mt-6 max-w-[60ch] font-body leading-relaxed text-papyrus/85">
+            <p className="mt-8 max-w-[60ch] font-body leading-relaxed text-papyrus/85">
               {executiveDirector.paragraph}
             </p>
-            <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-mist">
+            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.18em] text-mist">
               {executiveDirector.name}
               <span aria-hidden="true"> &middot; </span>
               {executiveDirector.title}

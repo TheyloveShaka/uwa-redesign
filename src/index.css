@@ -12,7 +12,11 @@
   --color-murram-deep: #52220F;
   --color-crane: #E3A81F;
   --color-papyrus: #EDE7DA;
-  --color-uwa: #50A000;
+  /* Read directly off the live header bar's own computed background style
+     (rgba(67,128,3,0.9), a Brizy .brz-bg-color div spanning the full header)
+     via getComputedStyle, not estimated from a screenshot. This is UWA's
+     actual primary green, replacing an earlier value picked by eye. */
+  --color-uwa: #438003;
   /* Sampled directly from ugandawildlife.org (rgb(148,206,46) on their
      "Conservation Facts" label and its accent rule), not estimated. This
      replaces an earlier value picked by eye without checking the live site. */

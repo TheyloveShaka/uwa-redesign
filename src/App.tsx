@@ -4,6 +4,7 @@ import { Nav } from "./components/nav/Nav";
 import { Footer } from "./components/footer/Footer";
 import { Home } from "./routes/Home";
 import { ParkDetail } from "./routes/ParkDetail";
+import { ReserveDetail } from "./routes/ReserveDetail";
 import { Conservation } from "./routes/Conservation";
 import { PlanYourVisit } from "./routes/PlanYourVisit";
 import { About } from "./routes/About";
@@ -35,6 +36,7 @@ export function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/parks/:slug" element={<ParkDetail />} />
+          <Route path="/reserves/:slug" element={<ReserveDetail />} />
           <Route path="/conservation" element={<Conservation />} />
           <Route path="/plan-your-visit" element={<PlanYourVisit />} />
           <Route path="/about" element={<About />} />

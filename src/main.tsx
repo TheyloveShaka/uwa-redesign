@@ -16,7 +16,11 @@ import { LenisProvider } from "./lib/LenisProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    {/* GitHub Pages serves this project at /uwa-redesign/, so the router's
+        idea of "root" has to match — otherwise every Link resolves against
+        the domain root and 404s. import.meta.env.BASE_URL mirrors vite
+        config's `base`: "/" in dev, "/uwa-redesign/" in the production build. */}
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <a href="#main" className="skip-link">
         Skip to content
       </a>

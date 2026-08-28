@@ -29,7 +29,7 @@ const heroVideoEmbedSrc =
 // this project. It shows immediately, sits under the iframe as its loading
 // state, and is what's left on screen whenever the embed doesn't qualify to
 // play at all (reduced motion, narrow viewport, slow connection).
-const heroVideoPoster = "/parks/hero-poster-hippos.webp";
+const heroVideoPoster = `${import.meta.env.BASE_URL}parks/hero-poster-hippos.webp`;
 
 const scrimReveal: Variants = {
   hidden: { opacity: 0 },

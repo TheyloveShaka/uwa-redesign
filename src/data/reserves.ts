@@ -196,7 +196,7 @@ export const reserves: Reserve[] = [
       "Duiker",
       "Chevrotain",
     ],
-    image: "/parks/katonga-wildlife-reserve-bay.webp",
+    image: `${import.meta.env.BASE_URL}parks/katonga-wildlife-reserve-bay.webp`,
     sourceUrl: "https://ugandawildlife.org/wildlifereserves/katonga/",
     todo: [
       "activities (no dedicated activities list found on page; inferred none)",
@@ -254,7 +254,7 @@ export const reserves: Reserve[] = [
       "Black and white colobus",
       "Baboon",
     ],
-    image: "/parks/ajai-wildlife-reserve-crowned-cranes.webp",
+    image: `${import.meta.env.BASE_URL}parks/ajai-wildlife-reserve-crowned-cranes.webp`,
     sourceUrl: "https://ugandawildlife.org/wildlifereserves/ajai/",
     todo: [
       "name (the page titles it simply 'Ajai'; body text calls it 'Ajai Game Reserve' when established in 1965, after originating as the 'White Rhino Sanctuary' in 1962 — no fuller 'Ajai Wildlife Reserve' name appears anywhere on the page)",
@@ -305,7 +305,7 @@ export const reserves: Reserve[] = [
       "Uganda kob",
       "Hartebeest",
     ],
-    image: "/parks/bugungu-wildlife-reserve-airstrip.webp",
+    image: `${import.meta.env.BASE_URL}parks/bugungu-wildlife-reserve-airstrip.webp`,
     sourceUrl: "https://ugandawildlife.org/wildlifereserves/bugungu/",
     todo: [
       "intro (page has no flowing intro paragraph; content extracted as labeled sections, see `sections`)",
@@ -347,7 +347,7 @@ export const reserves: Reserve[] = [
       "Large numbers of animals move in herds to and from Murchison Falls National Park",
     activities: [],
     keySpecies: ["Elephant", "Giraffe", "Buffalo"],
-    image: "/parks/karuma-wildlife-reserve-nile-rapids.webp",
+    image: `${import.meta.env.BASE_URL}parks/karuma-wildlife-reserve-nile-rapids.webp`,
     sourceUrl: "https://ugandawildlife.org/wildlifereserves/karuma/",
     todo: [
       "intro (page has no flowing intro paragraph; content extracted as labeled sections, see `sections`)",
@@ -410,7 +410,7 @@ export const reserves: Reserve[] = [
       "Topi",
       "Oribi",
     ],
-    image: "/parks/kigezi-wildlife-reserve-lion.webp",
+    image: `${import.meta.env.BASE_URL}parks/kigezi-wildlife-reserve-lion.webp`,
     sourceUrl: "https://ugandawildlife.org/wildlifereserves/kigezi/",
     todo: [
       "intro (page has no flowing intro paragraph; content extracted as labeled sections, see `sections`)",
@@ -463,7 +463,7 @@ export const reserves: Reserve[] = [
       "Waterbirds feature prominently in the avifauna including occasional visits by lesser flamingo Phoeniconaias minor",
     activities: [],
     keySpecies: ["Hippopotamus", "Lion", "Leopard", "Elephant", "Buffalo", "Lesser flamingo (occasional)"],
-    image: "/parks/kyambura-wildlife-reserve-lions.webp",
+    image: `${import.meta.env.BASE_URL}parks/kyambura-wildlife-reserve-lions.webp`,
     sourceUrl: "https://ugandawildlife.org/wildlifereserves/kyambura/",
     todo: [
       "intro (page has no flowing intro paragraph; content extracted as labeled sections, see `sections`)",
@@ -524,7 +524,7 @@ export const reserves: Reserve[] = [
       "Secretary bird",
       "Yellow-billed shrike (uncommon)",
     ],
-    image: "/parks/pian-upe-wildlife-reserve-ostriches.webp",
+    image: `${import.meta.env.BASE_URL}parks/pian-upe-wildlife-reserve-ostriches.webp`,
     sourceUrl: "https://ugandawildlife.org/wildlifereserves/pian-upe/",
     todo: [
       "intro (page has no flowing intro paragraph; content extracted as labeled sections, see `sections`)",
@@ -564,7 +564,7 @@ export const reserves: Reserve[] = [
       "The area has been the traditional pasture during the wet season for herds migrating from southern Karamoja, particularly from the Pian-Upe plains",
     activities: [],
     keySpecies: ["Lion", "Leopard", "Cheetah", "Giraffe", "Eland", "Roan antelope", "Bright's gazelle"],
-    image: "/parks/matheniko-wildlife-reserve-camels.webp",
+    image: `${import.meta.env.BASE_URL}parks/matheniko-wildlife-reserve-camels.webp`,
     sourceUrl: "https://ugandawildlife.org/wildlifereserves/matheniko/",
     todo: [
       "intro (page has no flowing intro paragraph; content extracted as labeled sections, see `sections`)",
@@ -608,7 +608,7 @@ export const reserves: Reserve[] = [
       "Gazetted in 1964 to ensure freedom of movement for the game during migration between the Matheniko plains and Pian-Upe Game Reserve",
     activities: [],
     keySpecies: ["Eland", "Uganda kob", "Reedbuck", "Mountain reedbuck", "Topi", "Hartebeest", "Oribi", "Spotted hyena", "Leopard"],
-    image: "/parks/bokora-wildlife-reserve-birds.webp",
+    image: `${import.meta.env.BASE_URL}parks/bokora-wildlife-reserve-birds.webp`,
     sourceUrl: "https://ugandawildlife.org/wildlifereserves/bokora-wildlife-reserve/",
     todo: [
       "intro (page has no flowing intro paragraph; content extracted as labeled sections, see `sections`)",
@@ -666,7 +666,7 @@ export const reserves: Reserve[] = [
       "Hyena",
       "Chimpanzees",
     ],
-    image: "/parks/kabwoya-wildlife-reserve-elephants.webp",
+    image: `${import.meta.env.BASE_URL}parks/kabwoya-wildlife-reserve-elephants.webp`,
     sourceUrl: "https://ugandawildlife.org/wildlifereserves/kabwoya/",
     todo: [
       "gazettedYear (page also describes an earlier 1963 Kaiso-Tonya Controlled Hunting Area precursor; 2002, the reserve's own gazettement date, is used here)",

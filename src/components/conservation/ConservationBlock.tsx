@@ -16,7 +16,7 @@ import { canAutoplayVideo } from "../../lib/media";
 // caveats as there, this is a comping aid for the layout, not shippable
 // media. The licensed replacement only needs to satisfy the same gating
 // below; nothing else about this section depends on which file it is.
-const bgVideoSrc = "/parks/hero.mp4";
+const bgVideoSrc = `${import.meta.env.BASE_URL}parks/hero.mp4`;
 
 /**
  * The mission, given the weight it deserves. This is the section that separates
@@ -175,7 +175,7 @@ export function ConservationBlock() {
           <div className="max-w-[62ch] border-l-2 border-uwa/45 pl-6 md:pl-9">
             <div className="flex items-center gap-3">
               <img
-                src="/parks/uwa-transparent.webp"
+                src={`${import.meta.env.BASE_URL}parks/uwa-transparent.webp`}
                 alt=""
                 aria-hidden="true"
                 width={64}

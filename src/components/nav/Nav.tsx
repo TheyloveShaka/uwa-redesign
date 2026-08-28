@@ -156,7 +156,7 @@ export function Nav() {
                 public/parks/SOURCES.md). Alt is empty since the Link's own
                 aria-label already carries the accessible name. */}
             <img
-              src="/parks/uwa-transparent.webp"
+              src={`${import.meta.env.BASE_URL}parks/uwa-transparent.webp`}
               alt=""
               width={320}
               height={359}

@@ -94,7 +94,7 @@ export function Stats() {
           used anywhere else on the page yet, and it pairs directly with the
           mountain-gorilla figure it sits beside. */}
       <img
-        src="/parks/mountain_gorilla_babyface__.webp"
+        src={`${import.meta.env.BASE_URL}parks/mountain_gorilla_babyface__.webp`}
         alt=""
         aria-hidden="true"
         width={800}
